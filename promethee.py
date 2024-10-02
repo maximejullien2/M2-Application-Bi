@@ -15,6 +15,7 @@ def promethee(selection_mode, data, array_type_operation):
                 - If selection_mode > 2 ou <= 0.
                 - If on indice on array-type_operation is different of "min" and "max".
                 - If data is None.
+                - if len(array_type_operation) == 0 or array_type_operation == None
     """
     try:
         if selection_mode > 2 or selection_mode <= 0 : 
@@ -33,3 +34,5 @@ def promethee(selection_mode, data, array_type_operation):
     except ValueError as err :
         print(err.args[0])
         exit(0)
+
+
