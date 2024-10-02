@@ -1,3 +1,6 @@
+import re
+import numpy as np
+
 def promethee(selection_mode, data, array_type_operation):
     """
     Launch a specific Promethee.
@@ -34,5 +37,13 @@ def promethee(selection_mode, data, array_type_operation):
     except ValueError as err :
         print(err.args[0])
         exit(0)
+    columns_name = []
+    for i in data.columns:
+        if re.search("^C[0-9]*",i):
+            columns_name.append(i)
+    table_degres_preference_multicritere = np.zeros((len(columns_name), len(columns_name)))
+
+
+    
 
 
