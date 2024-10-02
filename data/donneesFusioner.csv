@@ -20,14 +20,14 @@ Acceptabilité technique,Morphologie,Exposition vents,0.33333,3.0,1.0,4.0,4.0,4.
 Acceptabilité technique,Morphologie,Capacité potentielle,0.33333,1.0,1.0,2.0,1.0,3.0,2.0,0.142857142857143,0.0
 Acceptabilité technique,Foncier,Nombre propriétaires,0.5,4.0,1.0,3.0,1.0,2.0,4.0,0.142857142857143,0.0
 Acceptabilité technique,Foncier,Nombre Indivision,0.5,2.0,1.0,4.0,1.0,4.0,4.0,0.142857142857143,0.0
-Environnement naturel,Paysage,Contexte paysager,0.2,3.0,4.0,2.0,2.0,4.0,2.0,0.5,0.05
-Environnement naturel,Paysage,"Règlements, classement",0.2,2.0,3.0,3.0,2.0,4.0,3.0,0.5,0.05
-Environnement naturel,Paysage,Sensibilité paysagère,0.2,3.0,3.0,3.0,1.0,4.0,2.0,0.5,0.05
-Environnement naturel,Paysage,Perception,0.2,2.0,2.0,4.0,3.0,3.0,2.0,0.5,0.05
-Environnement naturel,Paysage,Capacité d'intégration,0.2,1.0,3.0,3.0,2.0,2.0,2.0,0.5,0.05
-Environnement naturel,Milieux naturels,Milieux naturels,0.33333,4.0,2.0,2.0,2.0,1.0,2.0,0.5,0.0833325
-Environnement naturel,Milieux naturels,Habitats naturels,0.33333,3.0,3.0,1.0,3.0,2.0,2.0,0.5,0.0833325
-Environnement naturel,Milieux naturels,Dynamique écologique,0.33333,3.0,3.0,2.0,3.0,2.0,2.0,0.5,0.0833325
+Environnement naturel,Paysage,Contexte paysager,0.2,3.0,4.0,2.0,2.0,4.0,2.0,0.5,0.0
+Environnement naturel,Paysage,"Règlements, classement",0.2,2.0,3.0,3.0,2.0,4.0,3.0,0.5,0.0
+Environnement naturel,Paysage,Sensibilité paysagère,0.2,3.0,3.0,3.0,1.0,4.0,2.0,0.5,0.0
+Environnement naturel,Paysage,Perception,0.2,2.0,2.0,4.0,3.0,3.0,2.0,0.5,0.0
+Environnement naturel,Paysage,Capacité d'intégration,0.2,1.0,3.0,3.0,2.0,2.0,2.0,0.5,0.0
+Environnement naturel,Milieux naturels,Milieux naturels,0.33333,4.0,2.0,2.0,2.0,1.0,2.0,0.5,0.0
+Environnement naturel,Milieux naturels,Habitats naturels,0.33333,3.0,3.0,1.0,3.0,2.0,2.0,0.5,0.0
+Environnement naturel,Milieux naturels,Dynamique écologique,0.33333,3.0,3.0,2.0,3.0,2.0,2.0,0.5,0.0
 "Environnement
 socio-économique",Agriculture,Zones AOC,0.16667,1.0,1.0,4.0,3.0,4.0,4.0,0.2,0.0
 "Environnement
@@ -64,10 +64,10 @@ Artisanat",Environnement,0.5,3.0,2.0,2.0,2.0,3.0,2.0,0.2,0.0
 "Environnement
 socio-économique","Industrie Commerce
 Artisanat",Impact,0.5,1.0,1.0,1.0,4.0,1.0,1.0,0.2,0.0
-Économie,Aménagement accès,Réseau routier,1.0,2.0,4.0,2.0,2.0,4.0,4.0,0.25,0.125
-Économie,Achat terrain,Valeur foncière,1.0,2.0,1.0,3.0,4.0,3.0,3.0,0.25,0.125
-Économie,Investissements projet,Coût aménagements,0.25,3.0,1.0,4.0,2.0,4.0,3.0,0.25,0.03125
-Économie,Investissements projet,Insertion paysagère,0.25,2.0,4.0,4.0,3.0,3.0,2.0,0.25,0.03125
-Économie,Investissements projet,Modi cation réseaux,0.25,1.0,1.0,2.0,2.0,1.0,2.0,0.25,0.03125
-Économie,Investissements projet,Raccordement,0.25,2.0,1.0,3.0,1.0,2.0,1.0,0.25,0.03125
-Économie,Coût transport,Coût transport,1.0,4.0,3.0,2.0,2.0,3.0,3.0,0.25,0.125
+Économie,Aménagement accès,Réseau routier,1.0,2.0,4.0,2.0,2.0,4.0,4.0,0.25,0.0
+Économie,Achat terrain,Valeur foncière,1.0,2.0,1.0,3.0,4.0,3.0,3.0,0.25,0.0
+Économie,Investissements projet,Coût aménagements,0.25,3.0,1.0,4.0,2.0,4.0,3.0,0.25,0.0
+Économie,Investissements projet,Insertion paysagère,0.25,2.0,4.0,4.0,3.0,3.0,2.0,0.25,0.0
+Économie,Investissements projet,Modi cation réseaux,0.25,1.0,1.0,2.0,2.0,1.0,2.0,0.25,0.0
+Économie,Investissements projet,Raccordement,0.25,2.0,1.0,3.0,1.0,2.0,1.0,0.25,0.0
+Économie,Coût transport,Coût transport,1.0,4.0,3.0,2.0,2.0,3.0,3.0,0.25,0.0
