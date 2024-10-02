@@ -1,21 +1,26 @@
-def promethee(selection_mode, data , weight):
+def promethee(selection_mode, data, array_type_operation):
     """
-    Réalise le promethee sélectionné.
+    Launch a specific Promethee.
 
     Args:
-        selection_mode (int = 1 ou = 2): Choisi le type de Promethee que l'on veut sélectionner.
-        data (Panda array): Représente les données que l'on va traiter.
-        weight (Panda array): Représente les poids des différents critères.
+        selection_mode (int = 1 or = 2): Select Promethee.
+        data (Panda array): Represente data we want to treat.
+        array_type_operation (array): Represente action we want to do on each critère ("min" ou "max").
 
     Returns:
-        Array_list : Retourne la liste des meilleurs éléments
+        Array_list : Return list of best element for a specific Promethee.
 
     Raises:
-            ValueError: Si selection_mode > 2 ou == 0.
+            ValueError: 
+                - If selection_mode > 2 ou <= 0.
+                - If on indice on array-type_operation is different of "min" and "max".
     """
     try:
-        if selection_mode > 2 or selection_mode == 0 : 
-            raise ValueError("Le Type de Promethee est soit 1 ou 2")
+        if selection_mode > 2 or selection_mode <= 0 : 
+            raise ValueError("Type of Promethee need to be 1 or 2")
+        for i in range(len(array_type_operation)):
+            if array_type_operation[i] != "max" and array_type_operation[i] != "min":
+                raise ValueError(f"At indice {i} , the array array_type_operation have a data different from 'min' or 'max'.")
     except ValueError as err :
         print(err.args[0])
         exit(0)
