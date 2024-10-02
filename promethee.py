@@ -20,6 +20,9 @@ def promethee(selection_mode, data, array_type_operation):
         if selection_mode > 2 or selection_mode <= 0 : 
             raise ValueError("Type of Promethee need to be 1 or 2")
         
+        if array_type_operation == None or len(array_type_operation) == 0 :
+            raise ValueError("Array array_type_operation is empty or None")
+
         for i in range(len(array_type_operation)):
             if array_type_operation[i] != "max" and array_type_operation[i] != "min":
                 raise ValueError(f"At indice {i} , the array array_type_operation have a data different from 'min' or 'max'.")
