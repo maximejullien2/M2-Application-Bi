@@ -1,5 +1,6 @@
 import re
 import numpy as np
+import pandas as pd
 def comparaison(value_x, value_y, weight,operation):
     """
     Compare two value.
@@ -65,16 +66,16 @@ def promethee(selection_mode, data, array_type_operation):
         for i in range(len(array_type_operation)):
             if array_type_operation[i] != "max" and array_type_operation[i] != "min":
                 raise ValueError(f"At indice {i} , the array array_type_operation have a data different from 'min' or 'max'.")
-        
-        if data == None: 
-            raise ValueError("Data value is None")
+
+        if not pd.notnull(data).all(axis = None): 
+            raise ValueError("One value in data is None")
         
     except ValueError as err :
         print(err.args[0])
         exit(0)
     columns_name = []
     for i in data.columns:
-        if re.search("^C[0-9]*",i):
+        if re.search("^C[0-9]+",i):
             columns_name.append(i)
     table_degres_preference_multicritere = np.zeros((len(columns_name), len(columns_name)))
 
@@ -90,8 +91,9 @@ def promethee(selection_mode, data, array_type_operation):
                 table_degres_preference_multicritere[i][j] = sum
             phi_negatif[j] += table_degres_preference_multicritere[i][j]
             phi_positif[i] += table_degres_preference_multicritere[i][j]
-    
+
     if selection_mode == 1:
-        return [sort(phi_positif) , 
+        return [sort(phi_positif,-1) , 
                 sort(phi_negatif)]
-    return sort(phi_positif - phi_negatif)
+
+    return sort(phi_positif - phi_negatif, -1)
