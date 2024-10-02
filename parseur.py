@@ -1,20 +1,22 @@
 import pandas as pd
 
-table = pd.read_csv('data/donneesFusioner.csv')
 
+def display_table(table):
+    """
+    Display the whole panda table
 
-# print(table['Poid'])
-
-
-def display_table():
+    Args:
+        table (pandas.core.frame.DataFrame): The table to display
+    """
     print(table)
 
 
-def extract_column(column_name=None):
+def extract_column(table, column_name):
     """
     Extract all of the values of a collumn and return the list
 
     Args:
+        table (pandas.core.frame.DataFrame): The csv table to manipulate
         column_name (string): The collumn name (ex: "C1").
 
     Returns:
@@ -28,11 +30,12 @@ def extract_column(column_name=None):
             return None
 
 
-def extract_column_argumented(column_name, second_collumn, second_value):
+def extract_column_argumented(table, column_name, second_collumn, second_value):
     """
     Extract all of the values of a collumn filtered by the second collumn value and return the list
 
     Args:
+        table (pandas.core.frame.DataFrame): The csv table to manipulate
         column_name (string): The collumn name (ex: "C1").
         second_collumn (string): The second collumn name (ex: "Catégories").
         second_value (string): The collumn value we want to be the same (ex: "Acceptabilité technique").
@@ -54,29 +57,80 @@ def extract_column_argumented(column_name, second_collumn, second_value):
 
 
 def removeDuplicate(entryList):
+    """
+    A simple function to remove duplicates from a list
+
+    Args:
+        entryList (a list): The list with too many duplicate of the same values
+
+    Returns:
+        list: The list without any duplicate entries.
+    """
     return list(dict.fromkeys(entryList))
 
 
 # def computeThemeValue():
 
 
-def computeTrueWeight():
+def cleanCollumn(table, collumnName="TrueWeight"):
+    """
+    Empty a collumn from the csv. WARNING: Data may be lost in case of a wrong collumn name.
+
+    Args:
+        table (pandas.core.frame.DataFrame): The csv table to manipulate
+        column_name (string): The collumn name that need to be clean (ex: "TrueWeight").
+    """
+    table[collumnName] = 0.0
+    table.to_csv("data/donneesFusioner.csv", index=False)
+
+
+def computeTrueWeight(table):
+    """
+    Will calculate the true weight for every row/criteria of the table then save it in the csv.
+    This one version will check every row in the table.
+
+    Args:
+        table (pandas.core.frame.DataFrame): The table to manipulate
+    """
+    cleanCollumn(table)
     counter = 0
     for i in table["Weight"].tolist():
-        currentValue = 0.25 * table["ThemeValue"].tolist()[counter] * i #le truc a améliorer dans le futur
+        currentValue = 0.25 * table["ThemeValue"].tolist()[counter] * i
         table.loc[counter, "TrueWeight"] = currentValue
         counter = counter + 1
     table.to_csv("data/donneesFusioner.csv", index=False)
 
+
+def computeTrueWeightFiltered(table, categories):
+    """
+    Will calculate the true weight for every row/criteria that is in one of the categories of the table then save it in the csv.
+
+    Args:
+        table (pandas.core.frame.DataFrame): The table to manipulate
+        categories (sting list): The categories of the table to manipulate
+    """
+    cleanCollumn(table)
+    counter = 0
+
+    for i in table["Weight"].tolist():
+        for y in categories:
+            if table["Catégories"][counter] == y:
+                currentValue = 1 / len(categories) * table["ThemeValue"].tolist()[counter] * i
+                table.loc[counter, "TrueWeight"] = currentValue
+        counter = counter + 1
+    table.to_csv("data/donneesFusioner.csv", index=False)
+
+
 if __name__ == '__main__':
-    # display_table()
-    # print (extract_column_argumented("Thèmes", "Acceptabilité technique"))
-    # print(extract_column("Thèmes"))
-    # print(removeDuplicate(extract_column_argumented("Thèmes","Catégories","Acceptabilité technique")))
-    computeTrueWeight()
-    countty=0
+    table = pd.read_csv('data/donneesFusioner.csv')
+    # display_table(table)
+    # print(extract_column(table, "Thèmes"))
+    # print(removeDuplicate(extract_column_argumented(table,"Thèmes","Catégories","Acceptabilité technique")))
+    # computeTrueWeight(table)
+    focaliser = ["Environnement naturel", "Économie"]
+    computeTrueWeightFiltered(table, focaliser)
+    countty = 0
     for y in table["TrueWeight"].tolist():
-        print(y)
-        countty=countty+y
-    print(countty)
+        countty = countty + y
+    print("total true weight= " + countty)
     print(table["TrueWeight"].tolist())

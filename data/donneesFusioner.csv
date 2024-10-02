@@ -1,73 +1,73 @@
 Catégories,Thèmes,Critères,Weight,C1,C2,C3,C4,C5,C6,ThemeValue,TrueWeight
-Acceptabilité technique,Géologie,Nature du substratum,0.33333,2.0,2.0,2.0,3.0,3.0,3.0,0.142857142857143,0.011904642857142869
-Acceptabilité technique,Géologie,Nature des terrains,0.33333,2.0,2.0,1.0,1.0,1.0,1.0,0.142857142857143,0.011904642857142869
-Acceptabilité technique,Géologie,Fissures - Fractures,0.33333,3.0,2.0,3.0,1.0,1.0,1.0,0.142857142857143,0.011904642857142869
-Acceptabilité technique,Hydrogéologie,Aquifère supérieur,0.33333,3.0,3.0,2.0,2.0,2.0,3.0,0.142857142857143,0.011904642857142869
-Acceptabilité technique,Hydrogéologie,Aquifère souterrain,0.33333,3.0,2.0,3.0,4.0,2.0,4.0,0.142857142857143,0.011904642857142869
-Acceptabilité technique,Hydrogéologie,Eau potable,0.33333,1.0,2.0,1.0,2.0,2.0,1.0,0.142857142857143,0.011904642857142869
-Acceptabilité technique,Eaux superficielles,Sensibilité milieu aval,0.33333,2.0,1.0,2.0,1.0,4.0,3.0,0.142857142857143,0.011904642857142869
-Acceptabilité technique,Eaux superficielles,Gestion des eaux,0.33333,3.0,3.0,1.0,3.0,4.0,2.0,0.142857142857143,0.011904642857142869
-Acceptabilité technique,Eaux superficielles,Bassin versant,0.33333,2.0,1.0,1.0,2.0,1.0,1.0,0.142857142857143,0.011904642857142869
-Acceptabilité technique,Accès,Qualité desserte,0.2,1.0,4.0,1.0,1.0,3.0,2.0,0.142857142857143,0.00714285714285715
-Acceptabilité technique,Accès,Conditions d'accès,0.2,1.0,3.0,2.0,1.0,3.0,4.0,0.142857142857143,0.00714285714285715
-Acceptabilité technique,Accès,Entrée du site,0.2,2.0,1.0,2.0,2.0,4.0,2.0,0.142857142857143,0.00714285714285715
-Acceptabilité technique,Accès,Viabilité hivernale,0.2,2.0,3.0,3.0,1.0,1.0,2.0,0.142857142857143,0.00714285714285715
-Acceptabilité technique,Accès,Transport ferroviaire,0.2,4.0,4.0,4.0,3.0,4.0,4.0,0.142857142857143,0.00714285714285715
-Acceptabilité technique,Distance et trafic,Distance et durée,0.5,3.0,3.0,2.0,2.0,3.0,3.0,0.142857142857143,0.017857142857142873
-Acceptabilité technique,Distance et trafic,Flux PL,0.5,1.0,2.0,1.0,1.0,1.0,3.0,0.142857142857143,0.017857142857142873
-Acceptabilité technique,Morphologie,Pente,0.33333,1.0,2.0,1.0,4.0,3.0,4.0,0.142857142857143,0.011904642857142869
-Acceptabilité technique,Morphologie,Exposition vents,0.33333,3.0,1.0,4.0,4.0,4.0,4.0,0.142857142857143,0.011904642857142869
-Acceptabilité technique,Morphologie,Capacité potentielle,0.33333,1.0,1.0,2.0,1.0,3.0,2.0,0.142857142857143,0.011904642857142869
-Acceptabilité technique,Foncier,Nombre propriétaires,0.5,4.0,1.0,3.0,1.0,2.0,4.0,0.142857142857143,0.017857142857142873
-Acceptabilité technique,Foncier,Nombre Indivision,0.5,2.0,1.0,4.0,1.0,4.0,4.0,0.142857142857143,0.017857142857142873
-Environnement naturel,Paysage,Contexte paysager,0.2,3.0,4.0,2.0,2.0,4.0,2.0,0.5,0.025
-Environnement naturel,Paysage,"Règlements, classement",0.2,2.0,3.0,3.0,2.0,4.0,3.0,0.5,0.025
-Environnement naturel,Paysage,Sensibilité paysagère,0.2,3.0,3.0,3.0,1.0,4.0,2.0,0.5,0.025
-Environnement naturel,Paysage,Perception,0.2,2.0,2.0,4.0,3.0,3.0,2.0,0.5,0.025
-Environnement naturel,Paysage,Capacité d'intégration,0.2,1.0,3.0,3.0,2.0,2.0,2.0,0.5,0.025
-Environnement naturel,Milieux naturels,Milieux naturels,0.33333,4.0,2.0,2.0,2.0,1.0,2.0,0.5,0.04166625
-Environnement naturel,Milieux naturels,Habitats naturels,0.33333,3.0,3.0,1.0,3.0,2.0,2.0,0.5,0.04166625
-Environnement naturel,Milieux naturels,Dynamique écologique,0.33333,3.0,3.0,2.0,3.0,2.0,2.0,0.5,0.04166625
+Acceptabilité technique,Géologie,Nature du substratum,0.33333,2.0,2.0,2.0,3.0,3.0,3.0,0.142857142857143,0.0
+Acceptabilité technique,Géologie,Nature des terrains,0.33333,2.0,2.0,1.0,1.0,1.0,1.0,0.142857142857143,0.0
+Acceptabilité technique,Géologie,Fissures - Fractures,0.33333,3.0,2.0,3.0,1.0,1.0,1.0,0.142857142857143,0.0
+Acceptabilité technique,Hydrogéologie,Aquifère supérieur,0.33333,3.0,3.0,2.0,2.0,2.0,3.0,0.142857142857143,0.0
+Acceptabilité technique,Hydrogéologie,Aquifère souterrain,0.33333,3.0,2.0,3.0,4.0,2.0,4.0,0.142857142857143,0.0
+Acceptabilité technique,Hydrogéologie,Eau potable,0.33333,1.0,2.0,1.0,2.0,2.0,1.0,0.142857142857143,0.0
+Acceptabilité technique,Eaux superficielles,Sensibilité milieu aval,0.33333,2.0,1.0,2.0,1.0,4.0,3.0,0.142857142857143,0.0
+Acceptabilité technique,Eaux superficielles,Gestion des eaux,0.33333,3.0,3.0,1.0,3.0,4.0,2.0,0.142857142857143,0.0
+Acceptabilité technique,Eaux superficielles,Bassin versant,0.33333,2.0,1.0,1.0,2.0,1.0,1.0,0.142857142857143,0.0
+Acceptabilité technique,Accès,Qualité desserte,0.2,1.0,4.0,1.0,1.0,3.0,2.0,0.142857142857143,0.0
+Acceptabilité technique,Accès,Conditions d'accès,0.2,1.0,3.0,2.0,1.0,3.0,4.0,0.142857142857143,0.0
+Acceptabilité technique,Accès,Entrée du site,0.2,2.0,1.0,2.0,2.0,4.0,2.0,0.142857142857143,0.0
+Acceptabilité technique,Accès,Viabilité hivernale,0.2,2.0,3.0,3.0,1.0,1.0,2.0,0.142857142857143,0.0
+Acceptabilité technique,Accès,Transport ferroviaire,0.2,4.0,4.0,4.0,3.0,4.0,4.0,0.142857142857143,0.0
+Acceptabilité technique,Distance et trafic,Distance et durée,0.5,3.0,3.0,2.0,2.0,3.0,3.0,0.142857142857143,0.0
+Acceptabilité technique,Distance et trafic,Flux PL,0.5,1.0,2.0,1.0,1.0,1.0,3.0,0.142857142857143,0.0
+Acceptabilité technique,Morphologie,Pente,0.33333,1.0,2.0,1.0,4.0,3.0,4.0,0.142857142857143,0.0
+Acceptabilité technique,Morphologie,Exposition vents,0.33333,3.0,1.0,4.0,4.0,4.0,4.0,0.142857142857143,0.0
+Acceptabilité technique,Morphologie,Capacité potentielle,0.33333,1.0,1.0,2.0,1.0,3.0,2.0,0.142857142857143,0.0
+Acceptabilité technique,Foncier,Nombre propriétaires,0.5,4.0,1.0,3.0,1.0,2.0,4.0,0.142857142857143,0.0
+Acceptabilité technique,Foncier,Nombre Indivision,0.5,2.0,1.0,4.0,1.0,4.0,4.0,0.142857142857143,0.0
+Environnement naturel,Paysage,Contexte paysager,0.2,3.0,4.0,2.0,2.0,4.0,2.0,0.5,0.05
+Environnement naturel,Paysage,"Règlements, classement",0.2,2.0,3.0,3.0,2.0,4.0,3.0,0.5,0.05
+Environnement naturel,Paysage,Sensibilité paysagère,0.2,3.0,3.0,3.0,1.0,4.0,2.0,0.5,0.05
+Environnement naturel,Paysage,Perception,0.2,2.0,2.0,4.0,3.0,3.0,2.0,0.5,0.05
+Environnement naturel,Paysage,Capacité d'intégration,0.2,1.0,3.0,3.0,2.0,2.0,2.0,0.5,0.05
+Environnement naturel,Milieux naturels,Milieux naturels,0.33333,4.0,2.0,2.0,2.0,1.0,2.0,0.5,0.0833325
+Environnement naturel,Milieux naturels,Habitats naturels,0.33333,3.0,3.0,1.0,3.0,2.0,2.0,0.5,0.0833325
+Environnement naturel,Milieux naturels,Dynamique écologique,0.33333,3.0,3.0,2.0,3.0,2.0,2.0,0.5,0.0833325
 "Environnement
-socio-économique",Agriculture,Zones AOC,0.16667,1.0,1.0,4.0,3.0,4.0,4.0,0.2,0.0083335
+socio-économique",Agriculture,Zones AOC,0.16667,1.0,1.0,4.0,3.0,4.0,4.0,0.2,0.0
 "Environnement
-socio-économique",Agriculture,Autres labels,0.16667,4.0,2.0,4.0,3.0,4.0,4.0,0.2,0.0083335
+socio-économique",Agriculture,Autres labels,0.16667,4.0,2.0,4.0,3.0,4.0,4.0,0.2,0.0
 "Environnement
-socio-économique",Agriculture,Aménagements pérennes,0.16667,4.0,4.0,2.0,2.0,2.0,1.0,0.2,0.0083335
+socio-économique",Agriculture,Aménagements pérennes,0.16667,4.0,4.0,2.0,2.0,2.0,1.0,0.2,0.0
 "Environnement
-socio-économique",Agriculture,Usages agricoles,0.16667,3.0,3.0,3.0,2.0,4.0,4.0,0.2,0.0083335
+socio-économique",Agriculture,Usages agricoles,0.16667,3.0,3.0,3.0,2.0,4.0,4.0,0.2,0.0
 "Environnement
-socio-économique",Agriculture,Structure foncière,0.16667,2.0,4.0,3.0,2.0,3.0,2.0,0.2,0.0083335
+socio-économique",Agriculture,Structure foncière,0.16667,2.0,4.0,3.0,2.0,3.0,2.0,0.2,0.0
 "Environnement
-socio-économique",Agriculture,Niveau d'impact,0.16667,4.0,2.0,2.0,1.0,1.0,1.0,0.2,0.0083335
+socio-économique",Agriculture,Niveau d'impact,0.16667,4.0,2.0,2.0,1.0,1.0,1.0,0.2,0.0
 "Environnement
-socio-économique",Habitat,Situation habitations,0.5,4.0,4.0,4.0,4.0,4.0,4.0,0.2,0.025
+socio-économique",Habitat,Situation habitations,0.5,4.0,4.0,4.0,4.0,4.0,4.0,0.2,0.0
 "Environnement
-socio-économique",Habitat,Nombre habitations,0.5,4.0,2.0,4.0,4.0,3.0,4.0,0.2,0.025
+socio-économique",Habitat,Nombre habitations,0.5,4.0,2.0,4.0,4.0,3.0,4.0,0.2,0.0
 "Environnement
-socio-économique",Urbanisme,Compatibilité POS/PLU,0.33333,1.0,1.0,4.0,4.0,4.0,4.0,0.2,0.0166665
+socio-économique",Urbanisme,Compatibilité POS/PLU,0.33333,1.0,1.0,4.0,4.0,4.0,4.0,0.2,0.0
 "Environnement
-socio-économique",Urbanisme,Evolution démographique,0.33333,4.0,1.0,4.0,4.0,1.0,1.0,0.2,0.0166665
+socio-économique",Urbanisme,Evolution démographique,0.33333,4.0,1.0,4.0,4.0,1.0,1.0,0.2,0.0
 "Environnement
-socio-économique",Urbanisme,Servitudes,0.33333,1.0,1.0,4.0,4.0,1.0,4.0,0.2,0.0166665
+socio-économique",Urbanisme,Servitudes,0.33333,1.0,1.0,4.0,4.0,1.0,4.0,0.2,0.0
 "Environnement
-socio-économique",Tourisme,Sites réglementés,0.25,1.0,2.0,3.0,2.0,2.0,3.0,0.2,0.0125
+socio-économique",Tourisme,Sites réglementés,0.25,1.0,2.0,3.0,2.0,2.0,3.0,0.2,0.0
 "Environnement
-socio-économique",Tourisme,Patrimoine,0.25,3.0,3.0,3.0,3.0,4.0,4.0,0.2,0.0125
+socio-économique",Tourisme,Patrimoine,0.25,3.0,3.0,3.0,3.0,4.0,4.0,0.2,0.0
 "Environnement
-socio-économique",Tourisme,Accueil,0.25,2.0,1.0,1.0,2.0,1.0,1.0,0.2,0.0125
+socio-économique",Tourisme,Accueil,0.25,2.0,1.0,1.0,2.0,1.0,1.0,0.2,0.0
 "Environnement
-socio-économique",Tourisme,Loisirs,0.25,3.0,3.0,2.0,3.0,2.0,3.0,0.2,0.0125
-"Environnement
-socio-économique","Industrie Commerce
-Artisanat",Environnement,0.5,3.0,2.0,2.0,2.0,3.0,2.0,0.2,0.025
+socio-économique",Tourisme,Loisirs,0.25,3.0,3.0,2.0,3.0,2.0,3.0,0.2,0.0
 "Environnement
 socio-économique","Industrie Commerce
-Artisanat",Impact,0.5,1.0,1.0,1.0,4.0,1.0,1.0,0.2,0.025
-Économie,Aménagement accès,Réseau routier,1.0,2.0,4.0,2.0,2.0,4.0,4.0,0.25,0.0625
-Économie,Achat terrain,Valeur foncière,1.0,2.0,1.0,3.0,4.0,3.0,3.0,0.25,0.0625
-Économie,Investissements projet,Coût aménagements,0.25,3.0,1.0,4.0,2.0,4.0,3.0,0.25,0.015625
-Économie,Investissements projet,Insertion paysagère,0.25,2.0,4.0,4.0,3.0,3.0,2.0,0.25,0.015625
-Économie,Investissements projet,Modi cation réseaux,0.25,1.0,1.0,2.0,2.0,1.0,2.0,0.25,0.015625
-Économie,Investissements projet,Raccordement,0.25,2.0,1.0,3.0,1.0,2.0,1.0,0.25,0.015625
-Économie,Coût transport,Coût transport,1.0,4.0,3.0,2.0,2.0,3.0,3.0,0.25,0.0625
+Artisanat",Environnement,0.5,3.0,2.0,2.0,2.0,3.0,2.0,0.2,0.0
+"Environnement
+socio-économique","Industrie Commerce
+Artisanat",Impact,0.5,1.0,1.0,1.0,4.0,1.0,1.0,0.2,0.0
+Économie,Aménagement accès,Réseau routier,1.0,2.0,4.0,2.0,2.0,4.0,4.0,0.25,0.125
+Économie,Achat terrain,Valeur foncière,1.0,2.0,1.0,3.0,4.0,3.0,3.0,0.25,0.125
+Économie,Investissements projet,Coût aménagements,0.25,3.0,1.0,4.0,2.0,4.0,3.0,0.25,0.03125
+Économie,Investissements projet,Insertion paysagère,0.25,2.0,4.0,4.0,3.0,3.0,2.0,0.25,0.03125
+Économie,Investissements projet,Modi cation réseaux,0.25,1.0,1.0,2.0,2.0,1.0,2.0,0.25,0.03125
+Économie,Investissements projet,Raccordement,0.25,2.0,1.0,3.0,1.0,2.0,1.0,0.25,0.03125
+Économie,Coût transport,Coût transport,1.0,4.0,3.0,2.0,2.0,3.0,3.0,0.25,0.125
