@@ -17,6 +17,25 @@ def comparaison(value_x, value_y, weight,operation):
         return weight
     return 0
 
+def sort(array, type = 0):
+    """
+    Sort index of an array.
+
+    Args:
+        array (Numpy Array): Array we need to sort.
+        type (int =-1 or 0): Reprensent if we inverse the sort or not .
+
+    Returns:
+        Array : Return an index of array sorted.
+    """
+    if type == -1: 
+        empty = []
+        array_sort = np.argsort(array)
+        for i in range(len(array_sort)):
+            empty.append(array_sort[len(array_sort) - i -1])
+        return np.array(empty)
+    return np.argsort(array)
+    
 def promethee(selection_mode, data, array_type_operation):
     """
     Launch a specific Promethee.
