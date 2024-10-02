@@ -1,5 +1,21 @@
 import re
 import numpy as np
+def comparaison(value_x, value_y, weight,operation):
+    """
+    Compare two value.
+
+    Args:
+        value_x (int): Represent value for an instance x on a specific critere.
+        value_y (int): Represent value for an instance y on a specific critere.
+        weight (int): Represente weight for a specific critere.
+        operation (string = "max" or = "min"): Represente operation we want to treat.
+
+    Returns:
+        int : Return weight if operation is true or 0 if false. 
+    """
+    if (operation == "min" and value_x < value_y) or (operation == "max" and value_x > value_y):
+        return weight
+    return 0
 
 def promethee(selection_mode, data, array_type_operation):
     """
