@@ -58,8 +58,15 @@ def promethee(selection_mode, data, array_type_operation):
         if re.search("^C[0-9]*",i):
             columns_name.append(i)
     table_degres_preference_multicritere = np.zeros((len(columns_name), len(columns_name)))
-
-
+    
+    for i in range(len(columns_name)):
+        for j in range(len(columns_name)):
+            if i != j:
+                sum = 0
+                for num_line in range(len(data.index)):
+                    sum += comparaison(data[columns_name[i]][num_line],data[columns_name[j]][num_line], data["TrueWeight"][num_line],array_type_operation[num_line])
+                table_degres_preference_multicritere[i][j] = sum
+    
     
 
 
