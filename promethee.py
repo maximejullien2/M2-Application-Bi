@@ -90,3 +90,8 @@ def promethee(selection_mode, data, array_type_operation):
                 table_degres_preference_multicritere[i][j] = sum
             phi_negatif[j] += table_degres_preference_multicritere[i][j]
             phi_positif[i] += table_degres_preference_multicritere[i][j]
+    
+    if selection_mode == 1:
+        return [sort(phi_positif) , 
+                sort(phi_negatif)]
+    return sort(phi_positif - phi_negatif)
