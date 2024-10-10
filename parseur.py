@@ -132,5 +132,5 @@ if __name__ == '__main__':
     countty = 0
     for y in table["TrueWeight"].tolist():
         countty = countty + y
-    print("total true weight= " + countty)
+    print("total true weight= ", countty)
     print(table["TrueWeight"].tolist())
