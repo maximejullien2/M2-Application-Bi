@@ -122,7 +122,7 @@ def computeTrueWeightFiltered(table, categories):
 
 
 if __name__ == '__main__':
-    table = pd.read_csv('data/donneesFusioner.csv')
+    table = pd.read_csv('data/donneesFusionerDecher.csv')
     # display_table(table)
     # print(extract_column(table, "Thèmes"))
     # print(removeDuplicate(extract_column_argumented(table,"Thèmes","Catégories","Acceptabilité technique")))
@@ -132,5 +132,5 @@ if __name__ == '__main__':
     countty = 0
     for y in table["TrueWeight"].tolist():
         countty = countty + y
-    print("total true weight= " + countty)
+    print("total true weight= ", countty)
     print(table["TrueWeight"].tolist())
