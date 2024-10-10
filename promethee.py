@@ -98,7 +98,7 @@ def promethee(selection_mode, data, array_type_operation):
     return sort(phi_positif - phi_negatif, -1)
 
 
-def comparaison_seuil(value_x, value_y, weight, threshold, operation):
+def comparaison_threshold(value_x, value_y, weight, threshold, operation):
     """
     Compare two value.
 
@@ -170,7 +170,7 @@ def promethee_threshold(selection_mode, data, array_threshold, array_type_operat
             if i != j:
                 sum = 0
                 for num_line in range(len(data.index)):
-                    sum += comparaison_seuil(data[columns_name[i]][num_line],data[columns_name[j]][num_line], data["TrueWeight"][num_line], array_threshold[num_line], array_type_operation[num_line])
+                    sum += comparaison_threshold(data[columns_name[i]][num_line],data[columns_name[j]][num_line], data["TrueWeight"][num_line], array_threshold[num_line], array_type_operation[num_line])
                 table_degres_preference_multicritere[i][j] = sum
             phi_negatif[j] += table_degres_preference_multicritere[i][j]
             phi_positif[i] += table_degres_preference_multicritere[i][j]
