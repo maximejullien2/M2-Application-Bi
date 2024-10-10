@@ -72,44 +72,47 @@ def removeDuplicate(entryList):
 # def computeThemeValue():
 
 
-def cleanCollumn(table, collumnName="TrueWeight"):
+def cleanCollumn(table, donnees="donneesFusionerDecher", collumnName="TrueWeight"):
     """
     Empty a collumn from the csv. WARNING: Data may be lost in case of a wrong collumn name.
 
     Args:
         table (pandas.core.frame.DataFrame): The csv table to manipulate
         column_name (string): The collumn name that need to be clean (ex: "TrueWeight").
+        donnees (string): the name of the file to save the new data
     """
     table[collumnName] = 0.0
-    table.to_csv("data/donneesFusioner.csv", index=False)
+    table.to_csv("data/"+donnees+".csv", index=False)
 
 
-def computeTrueWeight(table):
+def computeTrueWeight(table,donnees):
     """
     Will calculate the true weight for every row/criteria of the table then save it in the csv.
     This one version will check every row in the table.
 
     Args:
         table (pandas.core.frame.DataFrame): The table to manipulate
+        donnees (string): the name of the file to save the new data
     """
-    cleanCollumn(table)
+    #cleanCollumn(table, donnees)
     counter = 0
     for i in table["Weight"].tolist():
         currentValue = 0.25 * table["ThemeValue"].tolist()[counter] * i
         table.loc[counter, "TrueWeight"] = currentValue
         counter = counter + 1
-    table.to_csv("data/donneesFusioner.csv", index=False)
+    table.to_csv("data/"+donnees+".csv", index=False)
 
 
-def computeTrueWeightFiltered(table, categories):
+def computeTrueWeightFiltered(table, categories, donnees):
     """
     Will calculate the true weight for every row/criteria that is in one of the categories of the table then save it in the csv.
 
     Args:
         table (pandas.core.frame.DataFrame): The table to manipulate
-        categories (sting list): The categories of the table to manipulate
+        categories (string list): The categories of the table to manipulate
+        donnees (string): the name of the file to save the new data
     """
-    cleanCollumn(table)
+    #cleanCollumn(table,donnees)
     counter = 0
 
     for i in table["Weight"].tolist():
@@ -118,17 +121,18 @@ def computeTrueWeightFiltered(table, categories):
                 currentValue = 1 / len(categories) * table["ThemeValue"].tolist()[counter] * i
                 table.loc[counter, "TrueWeight"] = currentValue
         counter = counter + 1
-    table.to_csv("data/donneesFusioner.csv", index=False)
+    table.to_csv("data/"+donnees+".csv", index=False)
 
 
 if __name__ == '__main__':
     table = pd.read_csv('data/donneesFusionerDecher.csv')
     # display_table(table)
-    # print(extract_column(table, "Thèmes"))
+    # print(extract_column(table, "Thèmes", "donneesFusionerDecher"))
     # print(removeDuplicate(extract_column_argumented(table,"Thèmes","Catégories","Acceptabilité technique")))
-    # computeTrueWeight(table)
+    # computeTrueWeight(table, "donneesFusionerDecher")
+
     focaliser = ["Environnement naturel", "Économie"]
-    computeTrueWeightFiltered(table, focaliser)
+    computeTrueWeightFiltered(table, focaliser, "donneesFusionerDecher")
     countty = 0
     for y in table["TrueWeight"].tolist():
         countty = countty + y
