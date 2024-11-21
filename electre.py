@@ -21,7 +21,7 @@ def display(matriceDisplay, filename):
     nx.draw(g, with_labels = True)
     plt.savefig(filename+".png")
 
-def compareConcordance(value_x, value_y, weight,operation):
+def compareConcordance(value_x, value_y, weight,operation, seuil_preference = None):
     """
     Compare two value.
 
@@ -34,8 +34,15 @@ def compareConcordance(value_x, value_y, weight,operation):
     Returns:
         int : Return weight if operation is true or 0 if false.
     """
-    if (operation == "min" and value_x < value_y) or (operation == "max" and value_x > value_y):
+    
+    if (operation == "min" and value_x <= value_y) or (operation == "max" and value_x >= value_y):
         return weight
+    if seuil_preference != None:
+        value = 0
+        if (operation == "min" and 0<(value_x - value_y) and (value_x - value_y)<seuil_preference):
+            return (((value_x - value_y)- seuil_preference)/seuil_preference) * weight
+        elif (operation == "max" and 0<(value_y - value_x) and (value_y - value_x)<seuil_preference):
+            return (((value_y - value_x)- seuil_preference)/seuil_preference) * weight
     return 0
 
 def compareDiscordance(value_x, value_y,operation, veto):
@@ -55,7 +62,7 @@ def compareDiscordance(value_x, value_y,operation, veto):
     return 1
 
 
-def compute_electre(data, array_type_operation, veto, seuil):
+def compute_electre(data, array_type_operation, veto, seuil_concordance, seuil_preference = None):
     """
     Proceed to calculate matrix electre and display in a png the link between attributes
 
@@ -63,7 +70,8 @@ def compute_electre(data, array_type_operation, veto, seuil):
         data (pandas.core.frame.DataFrame): The table to treat
         array_type_operation (list[string] = "max" or = "min"): The table checking if how we should treat two data
         veto (int): Value of veto can be increased to reduce the amount of links
-        seuil (int): Value of seuil can be increased to reduce the amount of links
+        seuil_concordance (int): Value of seuil can be increased to reduce the amount of links
+        seuil_preference (Array or None): Array of value of seuil of preference for each categories.
 
     Returns: 
         array[][] : Return links choosen by electre.
@@ -83,9 +91,9 @@ def compute_electre(data, array_type_operation, veto, seuil):
             if i != j:
                 sum = 0
                 for num_line in range(len(data.index)):
-                    if (compareDiscordance(data[columns_name[i]][num_line],data[columns_name[j]][num_line],array_type_operation[num_line], veto[num_line])==0):
+                    if (compareDiscordance(data[columns_name[i]][num_line],data[columns_name[j]][num_line],array_type_operation[num_line], veto[num_line], seuil_preference[num_line])==0):
                         matriceNonDiscordance[i][j]=0
-                    sum += compareConcordance(data[columns_name[i]][num_line],data[columns_name[j]][num_line], data["TrueWeight"][num_line],array_type_operation[num_line])
+                    sum += compareConcordance(data[columns_name[i]][num_line],data[columns_name[j]][num_line], data["TrueWeight"][num_line],array_type_operation[num_line], seuil_preference[num_line])
 
                 matriceComparaison[i][j] = sum
             else:
@@ -93,7 +101,7 @@ def compute_electre(data, array_type_operation, veto, seuil):
 
     for i in range(len(columns_name)):
         for j in range(len(columns_name)):
-            if (matriceNonDiscordance[i][j]==1 and matriceComparaison[i][j]>=seuil):
+            if (matriceNonDiscordance[i][j]==1 and matriceComparaison[i][j]>=seuil_concordance):
                 # print(i, j, matriceNonDiscordance[i][j], matriceComparaison[i][j])
                 matriceElectreFiltre[i][j]=1
 
