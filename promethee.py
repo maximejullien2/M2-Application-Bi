@@ -1,7 +1,7 @@
 import re
 import numpy as np
 import pandas as pd
-def comparaison(value_x, value_y, weight,operation):
+def comparaison(value_x, value_y, weight,operation, seuil_preference = None):
     """
     Compare two value.
 
@@ -10,11 +10,17 @@ def comparaison(value_x, value_y, weight,operation):
         value_y (int): Represent value for an instance y on a specific critere.
         weight (int): Represente weight for a specific critere.
         operation (string = "max" or = "min"): Represente operation we want to treat.
+        seuil_preference (int or None): Represente seuil for a categories.
 
     Returns:
         int : Return weight if operation is true or 0 if false. 
     """
-    if (operation == "min" and value_x < value_y) or (operation == "max" and value_x > value_y):
+    if seuil_preference != None:
+        if (operation == "min" and 0<(value_y - value_x) and (value_y - value_x) < seuil_preference):
+            return (((value_y - value_x)- seuil_preference)/seuil_preference) * weight
+        elif (operation == "max" and 0<(value_x - value_y) and (value_x - value_y) < seuil_preference):
+            return (((value_x - value_y)- seuil_preference)/seuil_preference) * weight
+    if (operation == "min" and value_x <= value_y) or (operation == "max" and value_x >= value_y):
         return weight
     return 0
 
@@ -37,7 +43,7 @@ def sort(array, type = 0):
         return np.array(empty)
     return np.argsort(array)
     
-def promethee(selection_mode, data, array_type_operation):
+def promethee(selection_mode, data, array_type_operation, seuil_preference_array=None):
     """
     Launch a specific Promethee.
 
@@ -45,6 +51,7 @@ def promethee(selection_mode, data, array_type_operation):
         selection_mode (int = 1 or = 2): Select Promethee.
         data (Panda array): Represente data we want to treat.
         array_type_operation (array): Represente action we want to do on each critère ("min" ou "max").
+        seuil_preference_array (array or None): Represente seuil for each categories.
 
     Returns:
         Array_list : Return list of best element for a specific Promethee.
@@ -87,7 +94,7 @@ def promethee(selection_mode, data, array_type_operation):
             if i != j:
                 sum = 0
                 for num_line in range(len(data.index)):
-                    sum += comparaison(data[columns_name[i]][num_line],data[columns_name[j]][num_line], data["TrueWeight"][num_line],array_type_operation[num_line])
+                    sum += comparaison(data[columns_name[i]][num_line],data[columns_name[j]][num_line], data["TrueWeight"][num_line],array_type_operation[num_line], seuil_preference_array[num_line])
                 table_degres_preference_multicritere[i][j] = sum
             phi_negatif[j] += table_degres_preference_multicritere[i][j]
             phi_positif[i] += table_degres_preference_multicritere[i][j]
