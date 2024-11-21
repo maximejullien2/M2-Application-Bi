@@ -5,7 +5,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 
-def display(matriceDisplay):
+
+def display(matriceDisplay, filename):
     """
     Display the matrix in a png
 
@@ -18,7 +19,7 @@ def display(matriceDisplay):
             if matriceDisplay[i][j]==1:
                 g.add_edge(i, j)
     nx.draw(g, with_labels = True)
-    plt.savefig("electre.png")
+    plt.savefig(filename+".png")
 
 def compareConcordance(value_x, value_y, weight,operation):
     """
@@ -64,10 +65,10 @@ def compute_electre(data, array_type_operation, veto, seuil):
         veto (int): Value of veto can be increased to reduce the amount of links
         seuil (int): Value of seuil can be increased to reduce the amount of links
 
+    Returns: 
+        array[][] : Return links choosen by electre.
+        array[][] : Return concordance array calcuated in electre algorithm.
     """
-
-    data = pd.read_csv('data/donneesVoiture.csv')
-    weightList = table["TrueWeight"].tolist()
 
     columns_name = []
     for i in data.columns:
@@ -96,10 +97,122 @@ def compute_electre(data, array_type_operation, veto, seuil):
                 # print(i, j, matriceNonDiscordance[i][j], matriceComparaison[i][j])
                 matriceElectreFiltre[i][j]=1
 
-    display(matriceElectreFiltre)
+    return matriceElectreFiltre, matriceComparaison
+
+def erase_simple_loop(matrix, concordance):
+    """
+    Proceed to erase where a link between two point can be access by each other.
+
+    Args:
+        matrix (Array) : Give each link we use.
+        concordance (Array) : Give concordance result wetween two points.
+
+    Returns: 
+        array : Return variable matrix without link between two point can be access by each other. 
+    """
+    for i in range(len(matrix)):
+        for j in range(len(matrix)):
+            if i != j and matrix[i][j] == 1 and matrix[j][i] == 1:
+                if concordance[i][j] >= concordance[j][i]:
+                    matrix[j][i] = 0
+                else:
+                    matrix[i][j] = 0
+    return matrix
+
+def display_without_loop(matrix, concordance):
+    """
+    Proceed to erase every loop in matrix and after display new graphique.
+
+    Args:
+        matrix (Array) : Give each link we use.
+        concordance (Array) : Give concordance result wetween two points.
+
+    """
+    matrix = erase_simple_loop(matrix, concordance)
+    matrix = erase_multi_loop(matrix, concordance)
+    display(matrix)
+    
+def erase_multi_loop(matrix, concordance):
+    """
+    Proceed to erase any loop in the matrix.
+
+    Args:
+        matrix (Array) : Give each link we use.
+        concordance (Array) : Give concordance result wetween two points.
+
+    Returns: 
+        array : Return variable matrix without any loop. 
+    """
+    for i in range(len(matrix)):
+        for j in range(len(matrix)):
+            visiter = []
+            if matrix[i][j] == 1:
+                fini= False
+                visiter.append(i)
+                position = j
+                ancien = []
+                while(fini == False):
+                    for x in range(len(matrix)):
+                        if (matrix[position][x] == 1 and np.asarray(np.array(matrix) == x).nonzero()):
+                            visiter.append(position)
+                            position = x
+                            break
+                    if detect_doublon(visiter):
+                        matrix = suppression_noeud(matrix, visiter, concordance)
+                        break
+                    if len(ancien) != len(visiter):
+                        ancien = visiter.copy()
+                    else:
+                        break
+    return matrix
+    
+def detect_doublon(visiter):
+    """
+    Detect if a doublon is in array given
+
+    Args:
+        visiter (Array) : Array represent each poitn we visit
+
+    Returns: 
+        bool : Return if we detect a doublon.
+    """
+    for j in range(len(visiter) - 1):
+        if j != (len(visiter) - 1) and visiter[j] == visiter[len(visiter) - 1]:
+            return True
+    return False
+
+def suppression_noeud(matrix, visiter, concordance):
+    """
+    Proceed to erase a link in a loop detected.
+
+    Args:
+        matrix (Array) : Give each link we use.
+        visiter (Array) : Represent each poitn we visit
+        concordance (Array) : Give concordance result wetween two points.
+
+    Returns: 
+        array : Return variable matrix without the loop detected. 
+    """
+    while True:
+        if visiter[0] != visiter[len(visiter) - 1]:
+            visiter.pop(0)
+        else : 
+            break
+    noeud = []
+    mininmum = 999999
+    for i in range(len(visiter)-1):
+        if mininmum > concordance[visiter[i]][visiter[i+1]]:
+            mininmum = concordance[visiter[i]][visiter[i+1]]
+            noeud = [visiter[i], visiter[i+1]]
+    matrix[noeud[0]][noeud[1]] = 0
+    return matrix
+                    
 
 
 if __name__ == '__main__':
     table = pd.read_csv('data/donneesVoiture.csv')
     vetoTest=[4000, 30, 3, 5, 3, 30, 2]
-    compute_electre(table,["min", "max", "min", "min", "max", "max", "min"],vetoTest, 0.5)
+    matrix = [[0,0,1,1],[1,0,0,0],[0,1,0,1],[0,1,1,0]]
+    concordance = [[0,0,0.4,0.5],[0.6,0,0,0],[0,0.7,0,0.8],[0,0.9,1,0]]
+    display_without_loop(matrix, concordance)
+    #compute_electre(table,["min", "max", "min", "min", "max", "max", "min"],vetoTest, 0.5)
