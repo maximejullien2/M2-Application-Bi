@@ -15,13 +15,13 @@ def comparaison(value_x, value_y, weight,operation, seuil_preference = None):
     Returns:
         int : Return weight if operation is true or 0 if false. 
     """
-    if seuil_preference != None:
-        if (operation == "min" and 0<(value_y - value_x) and (value_y - value_x) < seuil_preference):
-            return (((value_y - value_x)- seuil_preference)/seuil_preference) * weight
-        elif (operation == "max" and 0<(value_x - value_y) and (value_x - value_y) < seuil_preference):
-            return (((value_x - value_y)- seuil_preference)/seuil_preference) * weight
-    if (operation == "min" and value_x <= value_y) or (operation == "max" and value_x >= value_y):
-        return weight
+    threshold = seuil_preference
+    if threshold == None:
+        threshold = 0
+    if (operation == "min" and value_x < value_y) or (operation == "max" and value_x > value_y):
+        if np.abs(value_x - value_y) >= threshold:
+            return weight
+        return (np.abs(value_x - value_y) / threshold) * weight
     return 0
 
 def sort(array, type = 0):
@@ -94,7 +94,10 @@ def promethee(selection_mode, data, array_type_operation, seuil_preference_array
             if i != j:
                 sum = 0
                 for num_line in range(len(data.index)):
-                    sum += comparaison(data[columns_name[i]][num_line],data[columns_name[j]][num_line], data["TrueWeight"][num_line],array_type_operation[num_line], seuil_preference_array[num_line])
+                    seuil = None
+                    if seuil_preference_array != None:
+                        seuil = seuil_preference_array[num_line]
+                    sum += comparaison(data[columns_name[i]][num_line],data[columns_name[j]][num_line], data["TrueWeight"][num_line],array_type_operation[num_line], seuil)
                 table_degres_preference_multicritere[i][j] = sum
             phi_negatif[j] += table_degres_preference_multicritere[i][j]
             phi_positif[i] += table_degres_preference_multicritere[i][j]
