@@ -38,7 +38,6 @@ def compareConcordance(value_x, value_y, weight,operation, seuil_preference = No
     if (operation == "min" and value_x <= value_y) or (operation == "max" and value_x >= value_y):
         return weight
     if seuil_preference != None:
-        value = 0
         if (operation == "min" and 0<(value_x - value_y) and (value_x - value_y)<seuil_preference):
             return (((value_x - value_y)- seuil_preference)/seuil_preference) * weight
         elif (operation == "max" and 0<(value_y - value_x) and (value_y - value_x)<seuil_preference):
@@ -57,7 +56,7 @@ def compareDiscordance(value_x, value_y,operation, veto):
     Returns:
         int : Return weight if operation is true or 0 if false.
     """
-    if (operation == "min" and np.absolute(value_y - value_x) >= veto) or (operation == "max" and np.absolute(value_x - value_y) >= veto):
+    if (operation == "min" and value_x - value_y >= veto) or (operation == "max" and value_y - value_x >= veto):
         return 0
     return 1
 
