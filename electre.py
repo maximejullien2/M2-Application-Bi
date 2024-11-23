@@ -216,13 +216,3 @@ def suppression_noeud(matrix, visiter, concordance):
             noeud = [visiter[i], visiter[i+1]]
     matrix[noeud[0]][noeud[1]] = 0
     return matrix
-                    
-
-
-if __name__ == '__main__':
-    table = pd.read_csv('data/donneesVoiture.csv')
-    vetoTest=[4000, 30, 3, 5, 3, 30, 2]
-    matrix = [[0,0,1,1],[1,0,0,0],[0,1,0,1],[0,1,1,0]]
-    concordance = [[0,0,0.4,0.5],[0.6,0,0,0],[0,0.7,0,0.8],[0,0.9,1,0]]
-    display_without_loop(matrix, concordance)
-    #compute_electre(table,["min", "max", "min", "min", "max", "max", "min"],vetoTest, 0.5)
