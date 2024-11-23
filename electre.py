@@ -129,7 +129,7 @@ def erase_simple_loop(matrix, concordance):
                     matrix[i][j] = 0
     return matrix
 
-def display_without_loop(matrix, concordance):
+def display_without_loop(matrix, concordance, filename):
     """
     Proceed to erase every loop in matrix and after display new graphique.
 
@@ -140,7 +140,7 @@ def display_without_loop(matrix, concordance):
     """
     matrix = erase_simple_loop(matrix, concordance)
     matrix = erase_multi_loop(matrix, concordance)
-    display(matrix)
+    display(matrix,filename)
     
 def erase_multi_loop(matrix, concordance):
     """
