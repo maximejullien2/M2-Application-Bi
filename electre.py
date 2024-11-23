@@ -69,7 +69,7 @@ def compute_electre(data, array_type_operation, veto, seuil_concordance, seuil_p
     Args:
         data (pandas.core.frame.DataFrame): The table to treat
         array_type_operation (list[string] = "max" or = "min"): The table checking if how we should treat two data
-        veto (int): Value of veto can be increased to reduce the amount of links
+        veto (Array): Value of veto can be increased to reduce the amount of links
         seuil_concordance (int): Value of seuil can be increased to reduce the amount of links
         seuil_preference (Array or None): Array of value of seuil of preference for each categories.
 
@@ -91,9 +91,12 @@ def compute_electre(data, array_type_operation, veto, seuil_concordance, seuil_p
             if i != j:
                 sum = 0
                 for num_line in range(len(data.index)):
-                    if (compareDiscordance(data[columns_name[i]][num_line],data[columns_name[j]][num_line],array_type_operation[num_line], veto[num_line], seuil_preference[num_line])==0):
+                    seuil = None
+                    if seuil_preference != None:
+                        seuil = seuil_preference[num_line]
+                    if (compareDiscordance(data[columns_name[i]][num_line],data[columns_name[j]][num_line],array_type_operation[num_line], veto[num_line])==0):
                         matriceNonDiscordance[i][j]=0
-                    sum += compareConcordance(data[columns_name[i]][num_line],data[columns_name[j]][num_line], data["TrueWeight"][num_line],array_type_operation[num_line], seuil_preference[num_line])
+                    sum += compareConcordance(data[columns_name[i]][num_line],data[columns_name[j]][num_line], data["TrueWeight"][num_line],array_type_operation[num_line], seuil)
 
                 matriceComparaison[i][j] = sum
             else:
