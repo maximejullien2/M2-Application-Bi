@@ -6,7 +6,7 @@ if __name__ == '__main__':
     table = pd.read_csv('data/promethe.csv')
 
     print("Résultat de Promethee I sans seuil:")
-    print("A obtenir : [array([4, 2, 5, 3, 1, 0]), array([4, 2, 3, 5, 1, 0])] , Obtenu :", promethee.promethee(1, table,["min", "max", "min", "min", "min", "max"]))
+    print("A obtenir : [array([4, 2, 3, 5, 1, 0]), array([4, 2, 3, 5, 1, 0])] , Obtenu :", promethee.promethee(1, table,["min", "max", "min", "min", "min", "max"]))
     print("Résultat de Promethee II sans seuil:")
     print("A obtenir : [4 2 3 5 1 0] , Obtenu :",promethee.promethee(2, table,["min", "max", "min", "min", "min", "max"]),"\n")
     
