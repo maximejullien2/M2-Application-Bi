@@ -5,6 +5,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 def display(type, result_promethee, filename):
+    plt.clf()
     g = nx.DiGraph()
     if type == 2:
         for i in range(0,len(result_promethee)-1):
@@ -15,6 +16,26 @@ def display(type, result_promethee, filename):
         for i in range(0,len(result_promethee[0])-1):
             if result_promethee[0][i] == result_promethee[1][i] and result_promethee[0][i+1] == result_promethee[1][i+1]:
                 g.add_edge(result_promethee[0][i], result_promethee[0][i + 1])
+
+        for i in range(0,len(result_promethee[0])-1):
+            for j in range(0, len(result_promethee[1]) - 1):
+                if result_promethee[0][i] == result_promethee[1][j] and i!=(len(result_promethee[0]) - 1) and j != (len(result_promethee[1]) - 1):
+                    if result_promethee[0][i+1] == result_promethee[1][j+1]:
+                        g.add_edge(result_promethee[0][i], result_promethee[0][i + 1])
+
+        i = 0
+        for i in range(0,len(result_promethee[0])-1):
+            if result_promethee[0][i] == result_promethee[1][i] and result_promethee[0][i+1] != result_promethee[1][i+1]:
+                g.add_edge(result_promethee[0][i], result_promethee[0][i+1])
+                g.add_edge(result_promethee[1][i], result_promethee[1][i+1])
+                break
+
+        for j in range(i+1,len(result_promethee[0])-1):
+            if result_promethee[0][j+1] == result_promethee[1][j+1]:
+                g.add_edge(result_promethee[0][j], result_promethee[0][j + 1])
+                g.add_edge(result_promethee[1][j], result_promethee[1][j + 1])
+                break
+
         nx.draw(g, with_labels=True)
         plt.savefig(filename + ".png")
 
