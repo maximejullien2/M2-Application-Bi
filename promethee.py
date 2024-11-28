@@ -1,6 +1,23 @@
 import re
 import numpy as np
 import pandas as pd
+import networkx as nx
+import matplotlib.pyplot as plt
+
+def display(type, result_promethee, filename):
+    g = nx.DiGraph()
+    if type == 2:
+        for i in range(0,len(result_promethee)-1):
+            g.add_edge(result_promethee[i], result_promethee[i+1])
+        nx.draw(g, with_labels=True)
+        plt.savefig(filename + ".png")
+    else:
+        for i in range(0,len(result_promethee[0])-1):
+            if result_promethee[0][i] == result_promethee[1][i] and result_promethee[0][i+1] == result_promethee[1][i+1]:
+                g.add_edge(result_promethee[0][i], result_promethee[0][i + 1])
+        nx.draw(g, with_labels=True)
+        plt.savefig(filename + ".png")
+
 def comparaison(value_x, value_y, weight,operation, seuil_preference = None):
     """
     Compare two value.
