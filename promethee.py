@@ -38,8 +38,19 @@ def sort(array, type = 0):
     if type == -1: 
         empty = []
         array_sort = np.argsort(array)
-        for i in range(len(array_sort)):
-            empty.append(array_sort[len(array_sort) - i -1])
+        i = 0
+        while i < len(array_sort):
+            if array[array_sort[len(array_sort) - i -1]] == array[array_sort[len(array_sort) - i -2]]:
+                if array_sort[len(array_sort) - i -1] > array_sort[len(array_sort) - i -2]:
+                    empty.append(array_sort[len(array_sort) - i - 2])
+                    empty.append(array_sort[len(array_sort) - i - 1])
+                else:
+                    empty.append(array_sort[len(array_sort) - i - 1])
+                    empty.append(array_sort[len(array_sort) - i - 2])
+                i += 1
+            else:
+                empty.append(array_sort[len(array_sort) - i - 1])
+            i += 1
         return np.array(empty)
     return np.argsort(array)
     
