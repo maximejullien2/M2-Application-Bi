@@ -35,6 +35,7 @@ def display(type, result_promethee, filename):
                 g.add_edge(result_promethee[0][j], result_promethee[0][j + 1])
                 g.add_edge(result_promethee[1][j], result_promethee[1][j + 1])
                 break
+        
 
         nx.draw(g, with_labels=True)
         plt.savefig(filename + ".png")
@@ -156,3 +157,19 @@ def promethee(selection_mode, data, array_type_operation, seuil_preference_array
 
     return sort(phi_positif - phi_negatif, -1)
 
+if __name__ == '__main__':
+    data = pd.read_csv('data/donneesFusionerDecher.csv')
+    min = []
+    for i in range(0,data.index.size):
+        min.append("min")
+    print(promethee(1,data,min))
+    display(1,promethee(1,data,min),"Promethee1_dechet")
+    print(promethee(2,data,min))
+    display(2,promethee(2,data,min),"Promethee2_dechet")
+
+    data = pd.read_csv('data/donneesVoiture.csv')
+    operation = ["min", "max", "min", "min", "max", "max", "min"]
+    print(promethee(1,data,operation))
+    display(1,promethee(1,data,operation),"Promethee1_Voiture")
+    print(promethee(2,data,operation))
+    display(2,promethee(2,data,operation),"Promethee2_Voiture")

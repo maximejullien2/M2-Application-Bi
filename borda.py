@@ -14,22 +14,23 @@ def display(decompte_borda):
         decompte_borda (array): Reprensent result of borda algorithm.
 
     """
+    plt.clf()
     g = nx.DiGraph()
     arg_array = promethee.sort(decompte_borda, -1)
     print(arg_array)
     i = 0
-    ancien = "A"+str(arg_array[i])
+    ancien = "C"+str(arg_array[i])
     for j in range(i,len(arg_array) - 1):
             if decompte_borda[arg_array[j]]==decompte_borda[arg_array[j+1]]:
-                ancien += ",A"+str(arg_array[j+1])
+                ancien += ",C"+str(arg_array[j+1])
                 i=i+1
             else:
                 break
     while (i < len(arg_array)-1):
-        message = "A"+str(arg_array[i+1])
+        message = "C"+str(arg_array[i+1])
         for j in range(i+1,len(arg_array) - 1):
             if decompte_borda[arg_array[j]]==decompte_borda[arg_array[j+1]]:
-                message += ",A"+str(arg_array[j+1])
+                message += ",C"+str(arg_array[j+1])
                 i=i+1
             else:
                 break
@@ -127,3 +128,15 @@ def borda(data , array_operation_type):
         for y in range(len(borda_point)):
             decompte_borda[x] += borda_point[y][x]
     return decompte_borda
+
+data = pd.read_csv('data/donneesFusionerDecher.csv')
+min = []
+for i in range(0,data.index.size):
+    min.append("min")
+print(borda(data,min))
+display(borda(data,min))
+
+data = pd.read_csv('data/donneesVoiture.csv')
+operation = ["min", "max", "min", "min", "max", "max", "min"]
+print(borda(data,operation))
+display(borda(data,operation))

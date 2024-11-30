@@ -2,6 +2,16 @@ import re
 import numpy as np
 import pandas as pd
 import promethee
+import networkx as nx
+import matplotlib.pyplot as plt
+def display(weighted_sum_result, filename):
+    plt.clf()
+    g = nx.DiGraph()
+    for i in range(len(weighted_sum_result) - 1):
+        g.add_edge(weighted_sum_result[i],weighted_sum_result[i + 1])
+    nx.draw(g, with_labels = True)
+    plt.savefig(filename+".png")
+
 def weighted_sum(data, type_operation):
     """
     Launch a weighted sum on a specific data.
@@ -18,7 +28,7 @@ def weighted_sum(data, type_operation):
                 - If data is None.
     """
     try:
-        if type_operation[i] != "max" and type_operation[i] != "min":
+        if type_operation != "max" and type_operation != "min":
             raise ValueError(f"At indice {i} , the array array_type_operation have a data different from 'min' or 'max'.")
 
         if not pd.notnull(data).all(axis = None): 
@@ -40,3 +50,10 @@ def weighted_sum(data, type_operation):
     if type_operation == "max":
         return promethee.sort(result,-1)
     return promethee.sort(result)
+
+data = pd.read_csv('data/donneesFusionerDecher.csv')
+print(weighted_sum(data, "min"))
+display(weighted_sum(data, "min"),"weighted_sum_decher")
+data = pd.read_csv('data/donneesVoiture.csv')
+print(weighted_sum(data, "min"))
+display(weighted_sum(data, "min"),"weighted_sum_voiture")

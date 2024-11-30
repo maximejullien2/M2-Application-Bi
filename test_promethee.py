@@ -14,3 +14,4 @@ if __name__ == '__main__':
     print("A obtenir : [array([4, 1, 3, 5, 2, 0]), array([4, 5, 2, 1, 3, 0])] , Obtenu :",promethee.promethee(1, table, ["min", "max", "min", "min", "min", "max"], [20, 10, 200, 4, 2, 2]))
     print("Résultat de Promethee II avec seuil:")
     print("A obtenir : [4 5 1 2 3 0] , Obtenu :",promethee.promethee(2, table, ["min", "max", "min", "min", "min", "max"] , [20, 10, 200, 4, 2, 2]),"\n")
+

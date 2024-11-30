@@ -13,6 +13,7 @@ def display(matriceDisplay, filename):
     Args:
         matriceDisplay list[int][int]: Matrix to display
     """
+    plt.clf()
     g = nx.DiGraph()
     for i in range(len(matriceDisplay)):
         for j in range(len(matriceDisplay)):
@@ -100,11 +101,9 @@ def compute_electre(data, array_type_operation, veto, seuil_concordance, seuil_p
                 matriceComparaison[i][j] = sum
             else:
                 matriceNonDiscordance[i][j] = 0
-
     for i in range(len(columns_name)):
         for j in range(len(columns_name)):
             if (matriceNonDiscordance[i][j]==1 and matriceComparaison[i][j]>=seuil_concordance):
-                # print(i, j, matriceNonDiscordance[i][j], matriceComparaison[i][j])
                 matriceElectreFiltre[i][j]=1
 
     return matriceElectreFiltre, matriceComparaison
@@ -216,3 +215,46 @@ def suppression_noeud(matrix, visiter, concordance):
             noeud = [visiter[i], visiter[i+1]]
     matrix[noeud[0]][noeud[1]] = 0
     return matrix
+
+def get_noyaux(matrix,concordance):
+    matrix = erase_simple_loop(matrix, concordance)
+    matrix = erase_multi_loop(matrix, concordance)
+    visiter = np.ones(len(matrix[0]))
+    for i in range(0,len(matrix)):
+        for j in range(0,len(matrix[0])):
+            if matrix[i][j] == 1:
+                visiter[j] = 0
+    print("Les membres présents dans le noyaux sont : ",end="")
+    for i in range(len(visiter)):
+        if visiter[i] == 1:
+            print(i+1," ",end="")
+    print()
+data = pd.read_csv('data/donneesFusionerDecher.csv')
+min = []
+veto = []
+seuil_preference = []
+seuil_concordance = 0
+for i in range(0,data.index.size):
+    min.append("min")
+    veto.append(10)
+    seuil_preference.append(2)
+matriceElectreFiltre, matriceComparaison = compute_electre(data, min, veto, seuil_concordance)
+get_noyaux(matriceElectreFiltre, matriceComparaison)
+display_without_loop(matriceElectreFiltre, matriceComparaison,"ElectreIV_dechet")
+matriceElectreFiltre, matriceComparaison = compute_electre(data, min, veto, seuil_concordance,seuil_preference)
+get_noyaux(matriceElectreFiltre, matriceComparaison)
+display_without_loop(matriceElectreFiltre, matriceComparaison,"ElectreIS_dechet")
+
+data = pd.read_csv('data/donneesVoiture.csv')
+operation = ["min", "max", "min", "min", "max", "max", "min"]
+veto = [3000, 69, 2, 4, 3, 50, 2]
+seuil_preference = [500, 20, 1, 2, 1.5, 20, 0.5]
+seuil_concordance = 0.5
+
+matriceElectreFiltre, matriceComparaison = compute_electre(data, min, veto, seuil_concordance)
+get_noyaux(matriceElectreFiltre, matriceComparaison)
+display_without_loop(matriceElectreFiltre, matriceComparaison,"ElectreIV_voiture")
+
+matriceElectreFiltre, matriceComparaison = compute_electre(data, min, veto, seuil_concordance,seuil_preference)
+get_noyaux(matriceElectreFiltre, matriceComparaison)
+display_without_loop(matriceElectreFiltre, matriceComparaison,"ElectreIS_voiture")
