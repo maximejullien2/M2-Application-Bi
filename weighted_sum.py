@@ -12,12 +12,13 @@ def display(weighted_sum_result, filename):
     nx.draw(g, with_labels = True)
     plt.savefig(filename+".png")
 
-def weighted_sum(data, type_operation):
+def weighted_sum(data,array_type_operation, type_operation):
     """
     Launch a weighted sum on a specific data.
 
     Args:
         data (Panda array): Represente data we want to treat.
+        array_type_operation (array): Represente action we want to do on each critère ("min" ou "max").
         type_operation (array): Represente action we want to do on each critère ("min" ou "max").
 
     Returns:
@@ -41,6 +42,15 @@ def weighted_sum(data, type_operation):
     for i in data.columns:
         if re.search("^C[0-9]+",i):
             columns_name.append(i)
+    copie = data.loc[:,columns_name[0] : columns_name[len(columns_name) - 1]]
+    mean_array = copie.mean(axis = 1)
+    std_array = copie.std(axis = 1)
+    for i in range(len(mean_array)):
+        for j in range(len(columns_name)):
+            if std_array[i] == 0:
+                data.loc[i, columns_name[j]] = 1
+            else:
+                data.loc[i, columns_name[j]] = (copie[columns_name[j]][i] - mean_array[i]) / std_array[i]
     result = []
     for i in range(len(columns_name)):
         sum = 0
@@ -52,8 +62,12 @@ def weighted_sum(data, type_operation):
     return promethee.sort(result)
 
 data = pd.read_csv('data/donneesFusionerDecher.csv')
-print(weighted_sum(data, "min"))
-display(weighted_sum(data, "min"),"weighted_sum_decher")
+min = []
+for i in range(0,data.index.size):
+    min.append("min")
+print(weighted_sum(data,min, "min"))
+display(weighted_sum(data,min, "min"),"weighted_sum_decher")
 data = pd.read_csv('data/donneesVoiture.csv')
-print(weighted_sum(data, "min"))
-display(weighted_sum(data, "min"),"weighted_sum_voiture")
+operation = ["min", "max", "min", "min", "max", "max", "min"]
+print(weighted_sum(data,operation, "min"))
+display(weighted_sum(data,operation, "min"),"weighted_sum_voiture")
