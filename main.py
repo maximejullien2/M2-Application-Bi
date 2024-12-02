@@ -58,18 +58,21 @@ def main():
 
 
     if (fonction == "electre"):
-        table = pd.read_csv('data/promethe.csv')
-        print("Résultat de Electre Iv:")
-        matriceElectreFiltre, matriceComparaison = electre.compute_electre(table,
-                        ["min", "max", "min", "min", "min", "max"],
-                                    [45, 29, 550, 6, 4.5, 4.5],
-                          0.6, None)
-        affichage(matriceElectreFiltre, matriceComparaison)
-        print("Résultat de Electre Is:")
-        matriceElectreFiltre, matriceComparaison = electre.compute_electre(table,
-                                                                           ["min", "max", "min", "min", "min", "max"],
-                                                                           [45, 29, 550, 6, 4.5, 4.5], 0.6,
-                                                                           [20, 10, 200, 4, 2, 2])
+        min_path = input("Entrez le chemin vers le fichier contenant les operations min/max : ")
+        min_list=miniParseur(min_path)
+        veto_path = input("Entrez le chemin vers le fichier contenant les vetos : ")
+        vetoList=miniParseur(veto_path)
+        vetoList=list(map(int, vetoList))
+        concordance = input("Entrez le numero de concordance : ")
+        concordance = float(concordance)
+        listeSeuil=None
+        listeSeuil_path = input("Pour Electre Is (optionel): Entrez le chemin vers le fichier contenant les seuils : ")
+        listeSeuil = miniParseur(listeSeuil_path)
+
+        matriceElectreFiltre, matriceComparaison = electre.compute_electre(data,min_list,vetoList,concordance, listeSeuil)
+        electre.get_noyaux(matriceElectreFiltre, matriceComparaison)
+        electre.display_without_loop(matriceElectreFiltre, matriceComparaison, "Electre")
+
         affichage(matriceElectreFiltre, matriceComparaison)
 
 
