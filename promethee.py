@@ -178,6 +178,7 @@ def promethee(selection_mode, data, array_type_operation, seuil_preference_array
 
 if __name__ == '__main__':
     data = pd.read_csv('data/donneesFusionerDecher.csv')
+
     min = []
     for i in range(0,data.index.size):
         min.append("min")
