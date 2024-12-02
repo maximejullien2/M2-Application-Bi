@@ -61,13 +61,15 @@ def weighted_sum(data,array_type_operation, type_operation):
         return promethee.sort(result,-1)
     return promethee.sort(result)
 
-data = pd.read_csv('data/donneesFusionerDecher.csv')
-min = []
-for i in range(0,data.index.size):
-    min.append("min")
-print(weighted_sum(data,min, "min"))
-display(weighted_sum(data,min, "min"),"weighted_sum_decher")
-data = pd.read_csv('data/donneesVoiture.csv')
-operation = ["min", "max", "min", "min", "max", "max", "min"]
-print(weighted_sum(data,operation, "min"))
-display(weighted_sum(data,operation, "min"),"weighted_sum_voiture")
+
+if __name__ == '__main__':
+    data = pd.read_csv('data/donneesFusionerDecher.csv')
+    min = []
+    for i in range(0,data.index.size):
+        min.append("min")
+    print(weighted_sum(data,min, "min"))
+    display(weighted_sum(data,min, "min"),"weighted_sum_decher")
+    data = pd.read_csv('data/donneesVoiture.csv')
+    operation = ["min", "max", "min", "min", "max", "max", "min"]
+    print(weighted_sum(data,operation, "min"))
+    display(weighted_sum(data,operation, "min"),"weighted_sum_voiture")

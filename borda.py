@@ -129,14 +129,15 @@ def borda(data , array_operation_type):
             decompte_borda[x] += borda_point[y][x]
     return decompte_borda
 
-data = pd.read_csv('data/donneesFusionerDecher.csv')
-min = []
-for i in range(0,data.index.size):
-    min.append("min")
-print(borda(data,min))
-display(borda(data,min))
+if __name__ == "__main__":
+    data = pd.read_csv('data/donneesFusionerDecher.csv')
+    min = []
+    for i in range(0,data.index.size):
+        min.append("min")
+    print(borda(data,min))
+    display(borda(data,min))
 
-data = pd.read_csv('data/donneesVoiture.csv')
-operation = ["min", "max", "min", "min", "max", "max", "min"]
-print(borda(data,operation))
-display(borda(data,operation))
+    data = pd.read_csv('data/donneesVoiture.csv')
+    operation = ["min", "max", "min", "min", "max", "max", "min"]
+    print(borda(data,operation))
+    display(borda(data,operation))

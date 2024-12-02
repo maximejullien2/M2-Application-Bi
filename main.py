@@ -4,8 +4,9 @@ import pandas as pd
 from electre import *
 #from test_electre import *
 import ast
-
+import weighted_sum
 from test_electre import affichage
+import borda
 
 
 def miniParseur(min_path):
@@ -28,17 +29,19 @@ def miniParseur(min_path):
 
 
 def main():
-    fonction = input("Entrez le nom de la fonction (ex : electre, promethee): ")
+    fonction = input("Entrez le nom de la fonction (ex : electre, promethee, weightsum, borda): ")
 
     fichier_path = input("Entrez le chemin du fichier : ")
 
+    min_path = input("Entrez le chemin vers le fichier contenant les operations min/max : ")
+    min_list = miniParseur(min_path)
+
     print(f"Nom de la fonction : {fonction}")
     print(f"Chemin du fichier : {fichier_path}")
+    print(f"Liste des operations : {min_list}")
 
     data = pd.read_csv(fichier_path)
     if (fonction == "promethee"):
-        min_path = input("Entrez le chemin vers le fichier contenant les operations min/max : ")
-        min_list=miniParseur(min_path)
         versionProme = input("Choisiser entre promethee '1' ou '2' (ex: 1) : ")
 
         listeSeuil=None
@@ -55,11 +58,7 @@ def main():
             promethee.display(2, promethee.promethee(2, data, min_list, listeSeuil), "Promethee2")
 
 
-
-
     if (fonction == "electre"):
-        min_path = input("Entrez le chemin vers le fichier contenant les operations min/max : ")
-        min_list=miniParseur(min_path)
         veto_path = input("Entrez le chemin vers le fichier contenant les vetos : ")
         vetoList=miniParseur(veto_path)
         vetoList=list(map(int, vetoList))
@@ -74,6 +73,15 @@ def main():
         electre.display_without_loop(matriceElectreFiltre, matriceComparaison, "Electre")
 
         affichage(matriceElectreFiltre, matriceComparaison)
+
+    if (fonction == "weightsum"):
+        opera = input("Entrez le nom de l'operation min ou max (sans guillemet) : ")
+        print(weighted_sum.weighted_sum(data, min_list, opera))
+        weighted_sum.display(weighted_sum.weighted_sum(data, min_list, opera), "weighted_sum")
+
+    if (fonction == "borda"):
+        print(borda.borda(data, min_list))
+        borda.display(borda.borda(data, min_list))
 
 
 
