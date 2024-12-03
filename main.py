@@ -1,5 +1,6 @@
 import borda
 import electre
+import parseur
 import promethee
 import weighted_sum
 import argparse
@@ -107,21 +108,40 @@ def main(args: argparse.Namespace):
     elif args.type == "parseur":
         fichier_path = input("Entrez le chemin du fichier : ") if args.filepath == "" else args.filepath
         data = pd.read_csv(fichier_path)
-        if args.transpose:
+        if args.transpose or input("Voulez-vous transposé vos données ? (y/n) : ") == "y":
             data = data.transpose()
-        if args.data_type:
+        if args.data_type or input(
+                "Voulez-vous que les colonnes soit nommées (le programme à besoin d'une nommation spécifique) ? (y/n) : ") == "y":
             array = []
-            for i in range(1,len(data.columns)+1):
+            for i in range(1, len(data.columns) + 1):
                 array.append(f"C{i}")
             data.set_axis(array, axis=1)
-        if len(args.categorie) > 0:
+        if args.categorie != None:
             for i in range(len(args.categorie)):
                 liste = miniParseur(args.categorie[i])
                 if liste is not None:
                     for j in range(len(liste)):
                         liste[j] = float(liste[j])
-                data.insert(0,args.categorie_name[i],liste)
-        data.to_csv(args.output + ".csv")
+                data.insert(0, args.categorie_name[i], liste)
+        if args.weight != "" or input("Donner un fichier Weight celon les critère si vous le souhaitez : ") != "":
+            liste = miniParseur(args.weight)
+            if liste is not None:
+                for j in range(len(liste)):
+                    liste[j] = float(liste[j])
+            data.insert(0, "Weight", liste)
+        if args.true_weight != "" or input(
+                "Donner un fichier TrueWeight celon les critère si vous le souhaitez : ") != "":
+            liste = miniParseur(args.true_weight)
+            if liste is not None:
+                for j in range(len(liste)):
+                    liste[j] = float(liste[j])
+            data.insert(0, "TrueWeight", liste)
+        if args.compute_true_weight or input(
+                "Voulez-vous qu'on calcul la True Weight par rapport au Weight et au Catégories : (y/n) ") == "y":
+            data = parseur.computeTrueWeight(data, "")
+        if args.compute_true_weight_filtered != None:
+            data = parseur.computeTrueWeightFiltered(data, args.compute_true_weight_filtered, "")
+        data.to_csv(args.output + ".csv", index=False)
 
     else:
         exit(f"L'option {args.type} n'est pas connu")
@@ -137,6 +157,8 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("-categorie_name", action="append")
     parser.add_argument("-compute_True_weight", action=argparse.BooleanOptionalAction)
     parser.add_argument("-compute_True_weight_filtered", nargs='+')
+    parser.add_argument("-compute_true_weight", action=argparse.BooleanOptionalAction)
+    parser.add_argument("-compute_true_weight_filtered", nargs='+')
     parser.add_argument("-true_weight", default="")
     parser.add_argument("-weight", default="")
 
