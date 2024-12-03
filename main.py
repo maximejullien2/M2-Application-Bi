@@ -155,8 +155,6 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("-data_type", action=argparse.BooleanOptionalAction)
     parser.add_argument("-categorie", action="append")
     parser.add_argument("-categorie_name", action="append")
-    parser.add_argument("-compute_True_weight", action=argparse.BooleanOptionalAction)
-    parser.add_argument("-compute_True_weight_filtered", nargs='+')
     parser.add_argument("-compute_true_weight", action=argparse.BooleanOptionalAction)
     parser.add_argument("-compute_true_weight_filtered", nargs='+')
     parser.add_argument("-true_weight", default="")
