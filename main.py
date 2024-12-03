@@ -104,13 +104,43 @@ def main(args: argparse.Namespace):
         if fonction == "borda":
             print(borda.borda(data, min_list))
             borda.display(borda.borda(data, min_list))
+    elif args.type == "parseur":
+        fichier_path = input("Entrez le chemin du fichier : ") if args.filepath == "" else args.filepath
+        data = pd.read_csv(fichier_path)
+        if args.transpose:
+            data = data.transpose()
+        if args.data_type:
+            array = []
+            for i in range(1,len(data.columns)+1):
+                array.append(f"C{i}")
+            data.set_axis(array, axis=1)
+        if len(args.categorie) > 0:
+            for i in range(len(args.categorie)):
+                liste = miniParseur(args.categorie[i])
+                if liste is not None:
+                    for j in range(len(liste)):
+                        liste[j] = float(liste[j])
+                data.insert(0,args.categorie_name[i],liste)
+        data.to_csv(args.output + ".csv")
+
+    else:
+        exit(f"L'option {args.type} n'est pas connu")
 
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("type")
-    parser.add_argument("-f", "--function", default="")
+    parser.add_argument("output")
+    parser.add_argument("-transpose", action=argparse.BooleanOptionalAction)
+    parser.add_argument("-data_type", action=argparse.BooleanOptionalAction)
+    parser.add_argument("-categorie", action="append")
+    parser.add_argument("-categorie_name", action="append")
+    parser.add_argument("-compute_True_weight", action=argparse.BooleanOptionalAction)
+    parser.add_argument("-compute_True_weight_filtered", nargs='+')
+    parser.add_argument("-true_weight", default="")
+    parser.add_argument("-weight", default="")
 
+    parser.add_argument("-f", "--function", default="")
     parser.add_argument("-file", "--filepath", default="")
     parser.add_argument("-op", "--operation", default="")
     parser.add_argument("-type_result", default="")
