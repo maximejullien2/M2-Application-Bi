@@ -26,7 +26,7 @@ def create_graph(matriceDisplay, filename):
     for i in range(len(matriceDisplay)):
         for j in range(len(matriceDisplay)):
             if matriceDisplay[i][j]==1:
-                g.add_edge(i, j)
+                g.add_edge("C"+str(i+1), "C"+str(j+1))
     nx.draw(g, with_labels = True)
     plt.savefig(filename+".png")
 

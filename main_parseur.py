@@ -10,7 +10,7 @@ def miniParseur(min_path):
     Returns:
         Array[str]: Array who contain data of min_path.
     """
-    if min_path is None:
+    if min_path == "":
         return None
     try:
         min_list = []

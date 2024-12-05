@@ -5,7 +5,7 @@ import weighted_sum
 import argparse
 from electre import *
 from test_electre import affichage
-
+import os
 
 def miniParseur(min_path):
     """
@@ -15,7 +15,7 @@ def miniParseur(min_path):
     Returns:
         Array[str]: Array who contain data of min_path.
     """
-    if min_path is None:
+    if min_path == "":
         return None
     try:
         min_list = []
@@ -36,6 +36,8 @@ def main():
     Parsing main part of the program.
 
     """
+    if ("output" in os.listdir("./")) == False:
+        os.mkdir("./output")
     args = parse_arguments()
     fonction = input(
         "Entrez le nom de la fonction (ex : electre, promethee, weightsum, borda): ") if args.function == "" else args.function
@@ -78,17 +80,20 @@ def main():
             listeSeuil_path = input("OPTIONEL: Entrez le chemin vers le fichier contenant les seuils : ")
         elif args.seuil != "None":
             listeSeuil_path = args.seuil
+        print(listeSeuil_path)
         listeSeuil = miniParseur(listeSeuil_path)
         if listeSeuil is not None:
             for i in range(len(listeSeuil)):
                 listeSeuil[i] = float(listeSeuil[i])
 
         if versionProme == "1":
-            print(promethee.promethee(1, data, min_list, listeSeuil))
-            promethee.create_graph(1, promethee.promethee(1, data, min_list, listeSeuil), "Promethee1")
+            result = promethee.promethee(1, data, min_list, listeSeuil)
+            promethee.display_result(1,result)
+            promethee.create_graph(1, result, "./output/PrometheeI")
         else:
-            print(promethee.promethee(2, data, min_list, listeSeuil))
-            promethee.create_graph(2, promethee.promethee(2, data, min_list, listeSeuil), "Promethee2")
+            result = promethee.promethee(2, data, min_list, listeSeuil)
+            promethee.display_result(2,result)
+            promethee.create_graph(2, result, "./output/PrometheeII")
 
     elif fonction == "electre":
         veto_path = input(
@@ -116,7 +121,7 @@ def main():
         matriceElectreFiltre, matriceComparaison = electre.compute_electre(data, min_list, vetoList, concordance,
                                                                            listeSeuil)
         electre.get_noyaux(matriceElectreFiltre, matriceComparaison)
-        electre.create_graph_without_loop(matriceElectreFiltre, matriceComparaison, "Electre")
+        electre.create_graph_without_loop(matriceElectreFiltre, matriceComparaison, "./output/Electre")
 
         affichage(matriceElectreFiltre, matriceComparaison)
 
@@ -131,11 +136,11 @@ def main():
                     break
 
         print(weighted_sum.weighted_sum(data, min_list, opera))
-        weighted_sum.create_graph(weighted_sum.weighted_sum(data, min_list, opera), "weighted_sum")
+        weighted_sum.create_graph(weighted_sum.weighted_sum(data, min_list, opera), "./output/weighted_sum")
 
     elif fonction == "borda":
         print(borda.borda(data, min_list))
-        borda.create_graph(borda.borda(data, min_list),"borda")
+        borda.create_graph(borda.borda(data, min_list),"./output/borda")
 
 
 

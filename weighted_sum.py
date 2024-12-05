@@ -13,8 +13,10 @@ def display_result(weighted_sum_result):
     print("Voici le résultat de l'algorithme somme pondérée : ")
     print("C"+str(weighted_sum_result[0]+1),end=" ")
     for i in range(1,len(weighted_sum_result)):
-        print(">",end=" ")
-        print("C"+str(weighted_sum_result[i]+1),end=" ")
+        if weighted_sum_result[i] != weighted_sum[i-1]:
+            print(" > C"+str(weighted_sum_result[i]+1),end=" ")
+        else:
+            print(" = C"+str(weighted_sum_result[i]+1),end="")
     print()
     print("Le meilleur candidats est donc : ","C"+str(weighted_sum_result[0]+1))
 
@@ -29,7 +31,7 @@ def create_graph(weighted_sum_result, filename):
     plt.clf()
     g = nx.DiGraph()
     for i in range(len(weighted_sum_result) - 1):
-        g.add_edge(weighted_sum_result[i],weighted_sum_result[i + 1])
+        g.add_edge("C"+str(weighted_sum_result[i]+1),"C"+str(weighted_sum_result[i + 1]+1))
     nx.draw(g, with_labels = True)
     plt.savefig(filename+".png")
 
