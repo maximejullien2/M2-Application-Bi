@@ -8,7 +8,14 @@ from test_electre import affichage
 
 
 def miniParseur(min_path):
-    if min_path == None:
+    """
+    Parse data in file.
+    Args:
+        min_path: Represent file we want to parse.
+    Returns:
+        Array[str]: Array who contain data of min_path.
+    """
+    if min_path is None:
         return None
     try:
         min_list = []
@@ -19,19 +26,32 @@ def miniParseur(min_path):
                 min_list.append(line)
         return min_list
     except FileNotFoundError:
-        print(f"Le fichier à l'emplacement {min_path} est introuvable.")
-        return
+        exit(f"Le fichier à l'emplacement {min_path} est introuvable.")
     except Exception as e:
-        print(f"Une erreur est survenue : {e}")
-        return
+        exit(f"Une erreur est survenue : {e}")
 
 
 def main():
+    """
+    Parsing main part of the program.
+
+    """
     args = parse_arguments()
     fonction = input(
         "Entrez le nom de la fonction (ex : electre, promethee, weightsum, borda): ") if args.function == "" else args.function
+    if (fonction in ["electre", "promethee", "weightsum", "borda"]) == False:
+        while True:
+            fonction = input(
+                "Entrez le nom de la fonction (ex : electre, promethee, weightsum, borda): ")
+            if fonction in ["electre", "promethee", "weightsum", "borda"]:
+                break
 
     fichier_path = input("Entrez le chemin du fichier : ") if args.filepath == "" else args.filepath
+    try:
+        file = open(fichier_path, "r")
+        file.close()
+    except FileNotFoundError:
+        exit(f"Le fichier à l'emplacement {fichier_path} est introuvable.")
 
     min_path = input(
         "Entrez le chemin vers le fichier contenant les operations min/max : ") if args.operation == "" else args.operation
@@ -45,6 +65,12 @@ def main():
     if fonction == "promethee":
         versionProme = input(
             "Choisiser entre promethee '1' ou '2' (ex: 1) : ") if args.version_algorithme == "" else args.version_algorithme
+        if versionProme != "1" and versionProme != "2":
+            while True:
+                versionProme = input(
+                    "Choisiser entre promethee '1' ou '2' (ex: 1) : ")
+                if versionProme == "1" or versionProme == "2":
+                    break
 
         listeSeuil = None
         listeSeuil_path = None
@@ -64,7 +90,7 @@ def main():
             print(promethee.promethee(2, data, min_list, listeSeuil))
             promethee.display(2, promethee.promethee(2, data, min_list, listeSeuil), "Promethee2")
 
-    if fonction == "electre":
+    elif fonction == "electre":
         veto_path = input(
             "Entrez le chemin vers le fichier contenant les vetos : ") if args.veto == "" else args.veto
         vetoList = miniParseur(veto_path)
@@ -94,18 +120,32 @@ def main():
 
         affichage(matriceElectreFiltre, matriceComparaison)
 
-    if fonction == "weightsum":
+    elif fonction == "weightsum":
         opera = input(
             "Entrez le nom de l'operation min ou max (sans guillemet) : ") if args.type_result == "" else args.type_result
+        if opera != "max" and opera != "min":
+            while True:
+                opera = input(
+                    "Entrez le nom de l'operation min ou max (sans guillemet) : ")
+                if opera != "max" and opera != "min":
+                    break
+
         print(weighted_sum.weighted_sum(data, min_list, opera))
         weighted_sum.display(weighted_sum.weighted_sum(data, min_list, opera), "weighted_sum")
 
-    if fonction == "borda":
+    elif fonction == "borda":
         print(borda.borda(data, min_list))
         borda.display(borda.borda(data, min_list))
 
 
+
 def parse_arguments() -> argparse.Namespace:
+    """
+    Represente argument we will use for this part of the program.
+
+    Returns:
+        argparse.Namespace : Will let you retrieve data send from the command line.
+    """
     parser = argparse.ArgumentParser(description="Réaliser la méthodologie d'optimisation sélectionné")
     parser.add_argument("-type", default="")
 

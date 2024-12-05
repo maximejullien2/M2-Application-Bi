@@ -3,7 +3,14 @@ import argparse
 import pandas as pd
 
 def miniParseur(min_path):
-    if min_path == None:
+    """
+    Parse data in file.
+    Args:
+        min_path: Represent file we want to parse.
+    Returns:
+        Array[str]: Array who contain data of min_path.
+    """
+    if min_path is None:
         return None
     try:
         min_list = []
@@ -14,25 +21,35 @@ def miniParseur(min_path):
                 min_list.append(line)
         return min_list
     except FileNotFoundError:
-        print(f"Le fichier à l'emplacement {min_path} est introuvable.")
-        return
+        exit(f"Le fichier à l'emplacement {min_path} est introuvable.")
     except Exception as e:
-        print(f"Une erreur est survenue : {e}")
-        return
+        exit(f"Une erreur est survenue : {e}")
 
 
 def main():
+    """
+    Optimisation main part of the program.
+
+    """
     args = parse_arguments()
     fichier_path = input("Entrez le chemin du fichier : ") if args.filepath == "" else args.filepath
+    try:
+        file = open(fichier_path, "r")
+        file.close()
+    except FileNotFoundError:
+        exit(f"Le fichier à l'emplacement {fichier_path} est introuvable.")
+    print(f"Chemin du fichier : {fichier_path}")
     data = pd.read_csv(fichier_path)
+    if "C1" != data.columns[0]:
+        data = pd.read_csv(fichier_path, header=None)
     if args.transpose or input("Voulez-vous transposé vos données ? (y/n) : ") == "y":
         data = data.transpose()
     if args.data_type or input(
-            "Voulez-vous que les colonnes soit nommées (le programme à besoin d'une nommation spécifique) ? (y/n) : ") == "y":
+            "Voulez-vous que les colonnes soit nommées (le programme à besoin d'une nomination spécifique) ? (y/n) : ") == "y":
         array = []
         for i in range(1, len(data.columns) + 1):
             array.append(f"C{i}")
-        data.set_axis(array, axis=1)
+        data = data.set_axis(array, axis='columns')
     if args.categorie != None:
         for i in range(len(args.categorie)):
             liste = miniParseur(args.categorie[i])
@@ -65,9 +82,15 @@ def main():
     data.to_csv(output, index=False)
 
 def parse_arguments() -> argparse.Namespace:
+    """
+    Represente argument we will use for this part of the program.
+
+    Returns:
+        argparse.Namespace : Will let you retrieve data send from the command line.
+    """
     parser = argparse.ArgumentParser(description="Permet de modifier les données afin de pouvoir les utiliser pour la aprtie optimisation")
     parser.add_argument("-type",default="")
-    parser.add_argument("-output", help="Représente la sortie du programme")
+    parser.add_argument("-output", default='', help="Représente la sortie du programme")
     parser.add_argument("-transpose", action=argparse.BooleanOptionalAction ,help="Représente si on doit transposé les données")
     parser.add_argument("-data_type", action=argparse.BooleanOptionalAction, help="Représente si on doit créer les colonnes C* nécessaire pour la partie optimisation")
     parser.add_argument("-categorie", action="append" ,help="Représente le fichier ou les donénes se trouve de la catégorie que l'on veut ajoute")
