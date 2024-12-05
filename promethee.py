@@ -5,6 +5,13 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 def display_result(type, result_promethee):
+    """
+    Show result of Prométhée algorithm.
+    Args:
+        type (int =1 or 2): Represent the type of Promethee we want to display.
+        result_promethee (Array or Array[Array[]]): Array who represent prométhée result.
+
+    """
     print("Voici les résultast de Prométhée",end="")
     if type == 1:
         print("I:")
@@ -23,11 +30,85 @@ def display_result(type, result_promethee):
         print()
     else:
         exit("Erreur le type de Prométhée donnée est différent de 1 ou 2")
+
+def create_graphe_type1_lien_identique(result_promethee, visiter, g):
+    """
+    Create edge between point if only the edge is in two phi ( positif and negatif)
+    Args:
+        result_promethee (Array or Array[Array[]]): Array who represent prométhée result.
+        visiter (Array): Array who represent if a point have already create a edge.
+        g (nx.Digraph): Represent the graph we try to create.
+
+    Returns:
+        visiter , g : Represent work we done on this graph.
+            """
+    visiter = np.ones(len(result_promethee[0]))
+    for i in range(0,len(result_promethee[0])-1):
+        if result_promethee[0][i] == result_promethee[1][i] and result_promethee[0][i+1] == result_promethee[1][i+1]:
+            g.add_edge(result_promethee[0][i], result_promethee[0][i + 1])
+            visiter[result_promethee[0][i]] = 0
+    for i in range(0,len(result_promethee[0])-1):
+        for j in range(0, len(result_promethee[1]) - 1):
+            if result_promethee[0][i] == result_promethee[1][j] and i!=(len(result_promethee[0]) - 1) and j != (len(result_promethee[1]) - 1):
+                if result_promethee[0][i+1] == result_promethee[1][j+1]:
+                    g.add_edge(result_promethee[0][i], result_promethee[0][i + 1])
+                    visiter[result_promethee[0][i]] = 0
+    return visiter, g
+
+def create_graphe_type1_lien_non_identique(result_promethee, visiter, g):
+    """
+    Create edge between point if the edge is not directly link in two phi ( positif and negatif)
+    Args:
+        result_promethee (Array or Array[Array[]]): Array who represent prométhée result.
+        visiter (Array): Array who represent if a point have already create a edge.
+        g (nx.Digraph): Represent the graph we try to create.
+
+    Returns:
+        visiter , g : Represent work we done on this graph.
+            """
+    array_superieur = []
+    #Will compare each point for each phi.
+    #If a point is better of another, I will have 0 to his position.
+    #Else he will have 1, signify he is better than this point
+    for i in range(0,len(result_promethee[0])):
+        phi_neg = np.ones(len(result_promethee[1]))
+        phi_positivie = np.ones(len(result_promethee[0]))
+        position_positif = np.argwhere(result_promethee[0] == i)
+        position_neg = np.argwhere(result_promethee[1] == i)
+        for j in range(0,len(result_promethee[0])):
+            if np.argwhere(result_promethee[0] == j) <= position_positif:
+                phi_positivie[j] = 0
+            if np.argwhere(result_promethee[1] == j) <= position_neg:
+                phi_neg[j] = 0
+        array_superieur.append([phi_positivie, phi_neg])
+
+    
+    #He will add new edge if he already didn't have a edge.
+    #In this case he will create a edge with best worst result if he is better with two phi.
+    for i in range(0,len(result_promethee[0])-1):
+        if visiter[result_promethee[0][i]] == 1:
+            j = i+1
+            while j < len(result_promethee[0]):
+                if array_superieur[result_promethee[0][i]][0][result_promethee[0][j]] == 1 and array_superieur[result_promethee[0][i]][1][result_promethee[0][j]] == 1:
+                    g.add_edge(result_promethee[0][i], result_promethee[0][j])
+                    break
+                else:
+                    j +=1
+        if visiter[result_promethee[1][i]] == 1:
+            j = i+1
+            while j < len(result_promethee[1]):
+                if array_superieur[result_promethee[1][i]][0][result_promethee[1][j]] == 1 and array_superieur[result_promethee[1][i]][1][result_promethee[1][j]] == 1:
+                    g.add_edge(result_promethee[1][i], result_promethee[1][j])
+                    break
+                else:
+                    j +=1
+        return visiter, g
+
 def create_graph(type, result_promethee, filename):
     """
     Function to create a graph who will display result of prométhée algorithm in a filename.
     Args:
-        type (int =1 or 2) : Represent the type of Promethee who want to display
+        type (int =1 or 2) : Represent the type of Promethee we used.
         result_promethee (Array or Array[Array[]]): Array who represent prométhée result.
         filename (string): Name of output file.:
     """
@@ -40,47 +121,8 @@ def create_graph(type, result_promethee, filename):
         plt.savefig(filename + ".png")
     else:
         visiter = np.ones(len(result_promethee[0]))
-        for i in range(0,len(result_promethee[0])-1):
-            if result_promethee[0][i] == result_promethee[1][i] and result_promethee[0][i+1] == result_promethee[1][i+1]:
-                g.add_edge(result_promethee[0][i], result_promethee[0][i + 1])
-                visiter[result_promethee[0][i]] = 0
-        for i in range(0,len(result_promethee[0])-1):
-            for j in range(0, len(result_promethee[1]) - 1):
-                if result_promethee[0][i] == result_promethee[1][j] and i!=(len(result_promethee[0]) - 1) and j != (len(result_promethee[1]) - 1):
-                    if result_promethee[0][i+1] == result_promethee[1][j+1]:
-                        g.add_edge(result_promethee[0][i], result_promethee[0][i + 1])
-                        visiter[result_promethee[0][i]] = 0
-
-        array_superieur = []
-        for i in range(0,len(result_promethee[0])):
-            phi_neg = np.ones(len(result_promethee[1]))
-            phi_positivie = np.ones(len(result_promethee[0]))
-            position_positif = np.argwhere(result_promethee[0] == i)
-            position_neg = np.argwhere(result_promethee[1] == i)
-            for j in range(0,len(result_promethee[0])):
-                if np.argwhere(result_promethee[0] == j) <= position_positif:
-                    phi_positivie[j] = 0
-                if np.argwhere(result_promethee[1] == j) <= position_neg:
-                    phi_neg[j] = 0
-            array_superieur.append([phi_positivie, phi_neg])
-
-        for i in range(0,len(result_promethee[0])-1):
-            if visiter[result_promethee[0][i]] == 1:
-                j = i+1
-                while j < len(result_promethee[0]):
-                    if array_superieur[result_promethee[0][i]][0][result_promethee[0][j]] == 1 and array_superieur[result_promethee[0][i]][1][result_promethee[0][j]] == 1:
-                        g.add_edge(result_promethee[0][i], result_promethee[0][j])
-                        break
-                    else:
-                        j +=1
-            if visiter[result_promethee[1][i]] == 1:
-                j = i+1
-                while j < len(result_promethee[1]):
-                    if array_superieur[result_promethee[1][i]][0][result_promethee[1][j]] == 1 and array_superieur[result_promethee[1][i]][1][result_promethee[1][j]] == 1:
-                        g.add_edge(result_promethee[1][i], result_promethee[1][j])
-                        break
-                    else:
-                        j +=1
+        visiter ,g = create_graphe_type1_lien_identique(result_promethee, visiter, g)
+        visiter ,g = create_graphe_type1_lien_non_identique(result_promethee, visiter, g)
 
         nx.draw(g, with_labels=True)
         plt.savefig(filename + ".png")
