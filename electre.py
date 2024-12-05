@@ -4,8 +4,16 @@ import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 
-
-
+def display_result(noyau):
+    """
+    Display the result of an electre algorithm.
+    Args:
+        noyau (Array): Represent the noyau of the electre algorithm result.
+    """
+    print("Voici les meilleurs candidats d'après lalgorithme d'Electre : ",end="")
+    for i in noyau:
+        print("C"+str(i+1),end=" ")
+    print()
 def create_graph(matriceDisplay, filename):
     """
     Function to create a graph who will display result of electre algorithm in a filename.
@@ -196,7 +204,7 @@ def suppression_noeud(matrix, visiter, concordance):
 
     Args:
         matrix (Array) : Give each link we use.
-        visiter (Array) : Represent each poitn we visit
+        visiter (Array) : Represent each point we visit
         concordance (Array) : Give concordance result wetween two points.
 
     Returns: 
@@ -217,6 +225,15 @@ def suppression_noeud(matrix, visiter, concordance):
     return matrix
 
 def get_noyaux(matrix,concordance):
+    """
+    Get noyaux from electre result.
+    Args:
+        matrix (Array) : Give each link we use.
+        concordance (Array) : Give concordance result wetween two points.
+
+    Returns:
+        array : Return noyau of electre result.
+    """
     matrix = erase_simple_loop(matrix, concordance)
     matrix = erase_multi_loop(matrix, concordance)
     visiter = np.ones(len(matrix[0]))
@@ -224,11 +241,11 @@ def get_noyaux(matrix,concordance):
         for j in range(0,len(matrix[0])):
             if matrix[i][j] == 1:
                 visiter[j] = 0
-    print("Les membres présents dans le noyaux sont : ",end="")
+    noyau = []
     for i in range(len(visiter)):
         if visiter[i] == 1:
-            print(i+1," ",end="")
-    print()
+            noyau.append(i)
+    return noyau
 
 
 if __name__ == '__main__':

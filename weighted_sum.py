@@ -3,6 +3,21 @@ import pandas as pd
 import promethee
 import networkx as nx
 import matplotlib.pyplot as plt
+
+def display_result(weighted_sum_result):
+    """
+    Function to display the results of the weighted sum algorithm
+     Args:
+        weighted_sum_result (Array): Array who represent weighted sum result.
+    """
+    print("Voici le résultat de l'algorithme somme pondérée : ")
+    print("C"+str(weighted_sum_result[0]+1),end=" ")
+    for i in range(1,len(weighted_sum_result)):
+        print(">",end=" ")
+        print("C"+str(weighted_sum_result[i]+1),end=" ")
+    print()
+    print("Le meilleur candidats est donc : ","C"+str(weighted_sum_result[0]+1))
+
 def create_graph(weighted_sum_result, filename):
     """
     Function to create a graph who will display result of weighted sum algorithm in a filename.
@@ -74,6 +89,7 @@ if __name__ == '__main__':
     for i in range(0,data.index.size):
         min.append("min")
     print(weighted_sum(data,min, "min"))
+    display_result(weighted_sum(data,min, "min"))
     create_graph(weighted_sum(data, min, "min"), "weighted_sum_decher")
     data = pd.read_csv('data/donneesVoiture.csv')
     operation = ["min", "max", "min", "min", "max", "max", "min"]

@@ -4,6 +4,25 @@ import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 
+def display_result(type, result_promethee):
+    print("Voici les résultast de Prométhée",end="")
+    if type == 1:
+        print("I:")
+        print("Φ^+ = ","C"+str(result_promethee[0][0]+1),end="")
+        for i in range (1,len(result_promethee[0])):
+            print(" > C"+str(result_promethee[0][i]+1),end="")
+        print()
+        print("Φ^- = ","C"+str(result_promethee[1][0]+1),end="")
+        for i in range (1,len(result_promethee[1])):
+            print(" > C"+str(result_promethee[1][i]+1),end="")
+    elif type == 2:
+        print("II:")
+        print("Φ = ","C"+str(result_promethee[0]+1),end="")
+        for i in range (1,len(result_promethee)):
+            print(" > C"+str(result_promethee[i]+1),end="")
+        print()
+    else:
+        exit("Erreur le type de Prométhée donnée est différent de 1 ou 2")
 def create_graph(type, result_promethee, filename):
     """
     Function to create a graph who will display result of prométhée algorithm in a filename.

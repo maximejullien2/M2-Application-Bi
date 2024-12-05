@@ -5,6 +5,37 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import promethee
 
+def display_result(decompte_borda):
+    """
+        Function to display the result of borda algorithm.
+
+        Args:
+            decompte_borda (array): Reprensent result of borda algorithm.
+    """
+    print("Voici le résultats d'après Borda: ")
+    arg_array = promethee.sort(decompte_borda, -1)
+    i = 0
+    ancien = "C" + str(arg_array[i]+1)
+    for j in range(i, len(arg_array) - 1):
+        if decompte_borda[arg_array[j]] == decompte_borda[arg_array[j + 1]]:
+            ancien += ",C" + str(arg_array[j + 1]+1)
+            i = i + 1
+        else:
+            break
+    print(ancien,end="")
+    meilleur = ancien
+    while (i < len(arg_array) - 1):
+        message = "C" + str(arg_array[i + 1])
+        for j in range(i + 1, len(arg_array) - 1):
+            if decompte_borda[arg_array[j]] == decompte_borda[arg_array[j + 1]]:
+                message += ",C" + str(arg_array[j + 1]+1)
+                i = i + 1
+            else:
+                break
+        print(" > "+message,end="")
+        i += 1
+    print()
+    print("Le ou les Meilleurs candidats sont ",meilleur)
 
 def create_graph(decompte_borda,filename):
     """
