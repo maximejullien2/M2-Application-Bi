@@ -4,7 +4,14 @@ import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 
-def display(type, result_promethee, filename):
+def create_graph(type, result_promethee, filename):
+    """
+    Function to create a graph who will display result of prométhée algorithm in a filename.
+    Args:
+        type (int =1 or 2) : Represent the type of Promethee who want to display
+        result_promethee (Array or Array[Array[]]): Array who represent prométhée result.
+        filename (string): Name of output file.:
+    """
     plt.clf()
     g = nx.DiGraph()
     if type == 2:
@@ -183,13 +190,13 @@ if __name__ == '__main__':
     for i in range(0,data.index.size):
         min.append("min")
     print(promethee(1,data,min))
-    display(1,promethee(1,data,min),"Promethee1_dechet")
+    create_graph(1, promethee(1, data, min), "Promethee1_dechet")
     print(promethee(2,data,min))
-    display(2,promethee(2,data,min),"Promethee2_dechet")
+    create_graph(2, promethee(2, data, min), "Promethee2_dechet")
 
     data = pd.read_csv('data/donneesVoiture.csv')
     operation = ["min", "max", "min", "min", "max", "max", "min"]
     print(promethee(1,data,operation))
-    display(1,promethee(1,data,operation),"Promethee1_Voiture")
+    create_graph(1, promethee(1, data, operation), "Promethee1_Voiture")
     print(promethee(2,data,operation))
-    display(2,promethee(2,data,operation),"Promethee2_Voiture")
+    create_graph(2, promethee(2, data, operation), "Promethee2_Voiture")

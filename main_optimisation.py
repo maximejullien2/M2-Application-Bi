@@ -85,10 +85,10 @@ def main():
 
         if versionProme == "1":
             print(promethee.promethee(1, data, min_list, listeSeuil))
-            promethee.display(1, promethee.promethee(1, data, min_list, listeSeuil), "Promethee1")
+            promethee.create_graph(1, promethee.promethee(1, data, min_list, listeSeuil), "Promethee1")
         else:
             print(promethee.promethee(2, data, min_list, listeSeuil))
-            promethee.display(2, promethee.promethee(2, data, min_list, listeSeuil), "Promethee2")
+            promethee.create_graph(2, promethee.promethee(2, data, min_list, listeSeuil), "Promethee2")
 
     elif fonction == "electre":
         veto_path = input(
@@ -116,7 +116,7 @@ def main():
         matriceElectreFiltre, matriceComparaison = electre.compute_electre(data, min_list, vetoList, concordance,
                                                                            listeSeuil)
         electre.get_noyaux(matriceElectreFiltre, matriceComparaison)
-        electre.display_without_loop(matriceElectreFiltre, matriceComparaison, "Electre")
+        electre.create_graph_without_loop(matriceElectreFiltre, matriceComparaison, "Electre")
 
         affichage(matriceElectreFiltre, matriceComparaison)
 
@@ -131,11 +131,11 @@ def main():
                     break
 
         print(weighted_sum.weighted_sum(data, min_list, opera))
-        weighted_sum.display(weighted_sum.weighted_sum(data, min_list, opera), "weighted_sum")
+        weighted_sum.create_graph(weighted_sum.weighted_sum(data, min_list, opera), "weighted_sum")
 
     elif fonction == "borda":
         print(borda.borda(data, min_list))
-        borda.display(borda.borda(data, min_list))
+        borda.create_graph(borda.borda(data, min_list),"borda")
 
 
 

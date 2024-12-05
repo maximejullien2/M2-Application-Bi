@@ -1,10 +1,16 @@
 import re
-import numpy as np
 import pandas as pd
 import promethee
 import networkx as nx
 import matplotlib.pyplot as plt
-def display(weighted_sum_result, filename):
+def create_graph(weighted_sum_result, filename):
+    """
+    Function to create a graph who will display result of weighted sum algorithm in a filename.
+    Args:
+        weighted_sum_result (Array): Array who represent weighted sum result.
+        filename (string): Name of output file.:
+    :return:
+    """
     plt.clf()
     g = nx.DiGraph()
     for i in range(len(weighted_sum_result) - 1):
@@ -68,8 +74,8 @@ if __name__ == '__main__':
     for i in range(0,data.index.size):
         min.append("min")
     print(weighted_sum(data,min, "min"))
-    display(weighted_sum(data,min, "min"),"weighted_sum_decher")
+    create_graph(weighted_sum(data, min, "min"), "weighted_sum_decher")
     data = pd.read_csv('data/donneesVoiture.csv')
     operation = ["min", "max", "min", "min", "max", "max", "min"]
     print(weighted_sum(data,operation, "min"))
-    display(weighted_sum(data,operation, "min"),"weighted_sum_voiture")
+    create_graph(weighted_sum(data, operation, "min"), "weighted_sum_voiture")

@@ -6,12 +6,13 @@ import matplotlib.pyplot as plt
 import promethee
 
 
-def display(decompte_borda):
+def create_graph(decompte_borda,filename):
     """
-    Create a png file to show result of borda algorithm.
+    Function to create a graph who will display result of borda algorithm in a filename.
 
     Args:
         decompte_borda (array): Reprensent result of borda algorithm.
+        filename (string): Name of output file.:
 
     """
     plt.clf()
@@ -38,7 +39,7 @@ def display(decompte_borda):
         ancien = message
         i += 1
     nx.draw(g, with_labels = True)
-    plt.savefig("borda.png")
+    plt.savefig(filename+".png")
 
 
 def get_doublon(borda_point, j, i, value, array, arg_array):
@@ -135,9 +136,9 @@ if __name__ == "__main__":
     for i in range(0,data.index.size):
         min.append("min")
     print(borda(data,min))
-    display(borda(data,min))
+    create_graph(borda(data, min),"borda")
 
     data = pd.read_csv('data/donneesVoiture.csv')
     operation = ["min", "max", "min", "min", "max", "max", "min"]
     print(borda(data,operation))
-    display(borda(data,operation))
+    create_graph(borda(data, operation),"borda")

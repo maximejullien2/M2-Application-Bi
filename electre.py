@@ -6,12 +6,12 @@ import matplotlib.pyplot as plt
 
 
 
-def display(matriceDisplay, filename):
+def create_graph(matriceDisplay, filename):
     """
-    Display the matrix in a png
-
+    Function to create a graph who will display result of electre algorithm in a filename.
     Args:
-        matriceDisplay list[int][int]: Matrix to display
+        matriceDisplay (Array[Array[]]): Array who represent electre result.
+        filename (string): Name of output file.:
     """
     plt.clf()
     g = nx.DiGraph()
@@ -128,7 +128,7 @@ def erase_simple_loop(matrix, concordance):
                     matrix[i][j] = 0
     return matrix
 
-def display_without_loop(matrix, concordance, filename):
+def create_graph_without_loop(matrix, concordance, filename):
     """
     Proceed to erase every loop in matrix and after display new graphique.
 
@@ -139,7 +139,7 @@ def display_without_loop(matrix, concordance, filename):
     """
     matrix = erase_simple_loop(matrix, concordance)
     matrix = erase_multi_loop(matrix, concordance)
-    display(matrix,filename)
+    create_graph(matrix, filename)
     
 def erase_multi_loop(matrix, concordance):
     """
@@ -245,11 +245,11 @@ if __name__ == '__main__':
 
     matriceElectreFiltre, matriceComparaison = compute_electre(data, min, veto, seuil_concordance)
     get_noyaux(matriceElectreFiltre, matriceComparaison)
-    display_without_loop(matriceElectreFiltre, matriceComparaison,"ElectreIV_dechet")
+    create_graph_without_loop(matriceElectreFiltre, matriceComparaison, "ElectreIV_dechet")
 
     matriceElectreFiltre, matriceComparaison = compute_electre(data, min, veto, seuil_concordance,seuil_preference)
     get_noyaux(matriceElectreFiltre, matriceComparaison)
-    display_without_loop(matriceElectreFiltre, matriceComparaison,"ElectreIS_dechet")
+    create_graph_without_loop(matriceElectreFiltre, matriceComparaison, "ElectreIS_dechet")
 
     data = pd.read_csv('data/donneesVoiture.csv')
     operation = ["min", "max", "min", "min", "max", "max", "min"]
@@ -259,8 +259,8 @@ if __name__ == '__main__':
 
     matriceElectreFiltre, matriceComparaison = compute_electre(data, min, veto, seuil_concordance)
     get_noyaux(matriceElectreFiltre, matriceComparaison)
-    display_without_loop(matriceElectreFiltre, matriceComparaison,"ElectreIV_voiture")
+    create_graph_without_loop(matriceElectreFiltre, matriceComparaison, "ElectreIV_voiture")
 
     matriceElectreFiltre, matriceComparaison = compute_electre(data, min, veto, seuil_concordance,seuil_preference)
     get_noyaux(matriceElectreFiltre, matriceComparaison)
-    display_without_loop(matriceElectreFiltre, matriceComparaison,"ElectreIS_voiture")
+    create_graph_without_loop(matriceElectreFiltre, matriceComparaison, "ElectreIS_voiture")
