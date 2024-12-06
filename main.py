@@ -8,11 +8,11 @@ def main():
     """
     if len(sys.argv)>1:
         if sys.argv[1] == '-h':
-            exit("usage: main.py [-h] type"+"\n"+
-            "Choisir le type de travail que l'on veut faire"+"\n\n"+
+            exit("usage: main.py [-h] [-type]"+"\n"+
+            "Permet de réaliser le type de travail que l'on veut produire."+"\n\n"+
             "options:"+"\n"+
-            "-type        optimisation ou parseur"+"\n"+
-            "  -h, --help  show this help message and exit")
+            "  -type  type     optimisation ou parseur"+"\n"+
+            "  -h, --help      montre ce message d'aide puis arrète le program")
         if sys.argv[1] == "-type":
             if sys.argv[2] == "optimisation":
                 main_optimisation.main()

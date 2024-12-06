@@ -88,17 +88,16 @@ def parse_arguments() -> argparse.Namespace:
     Returns:
         argparse.Namespace : Will let you retrieve data send from the command line.
     """
-    parser = argparse.ArgumentParser(description="Permet de modifier les données afin de pouvoir les utiliser pour la aprtie optimisation")
+    parser = argparse.ArgumentParser(description="Permet de modifier les données afin de pouvoir les utiliser pour la parti optimisation.")
     parser.add_argument("-type",default="")
+    parser.add_argument("-file", "--filepath", default="", help="Défini sur quel fichier on veut réaliser ces traitements")
     parser.add_argument("-output", default='', help="Représente la sortie du programme")
     parser.add_argument("-transpose", action=argparse.BooleanOptionalAction ,help="Représente si on doit transposé les données")
     parser.add_argument("-data_type", action=argparse.BooleanOptionalAction, help="Représente si on doit créer les colonnes C* nécessaire pour la partie optimisation")
     parser.add_argument("-categorie", action="append" ,help="Représente le fichier ou les donénes se trouve de la catégorie que l'on veut ajoute")
     parser.add_argument("-categorie_name", action="append", help = "Représente le nom de la colonne que l'on veut ajouter.")
-    parser.add_argument("-compute_true_weight", action=argparse.BooleanOptionalAction, help ="Défini si on doit calculer la TrueWeight par rapport a la colonne Catégorie et à la colonne Weight")
-    parser.add_argument("-compute_true_weight_filtered", nargs='+',help="Défini quel catégorie on veut traiter dans la Colonne catégorie lors du calcul de la TrueWeight")
     parser.add_argument("-true_weight", default="", help="Représente le fichier ou se trouve les TrueWeight que l'on va rajouter au donnée")
     parser.add_argument("-weight", default="", help="Représente le fichier ou se trouve les TrueWeight que l'on va rajouter au donnée")
-
-    parser.add_argument("-file", "--filepath", default="", help="Défini sur quel fichier on veut réaliser ces traitements")
+    parser.add_argument("-compute_true_weight", action=argparse.BooleanOptionalAction, help ="Défini si on doit calculer la TrueWeight par rapport a la colonne Catégorie et à la colonne Weight")
+    parser.add_argument("-compute_true_weight_filtered", nargs='+',help="Défini quel catégorie on veut traiter dans la Colonne catégorie lors du calcul de la TrueWeight")
     return parser.parse_args()
