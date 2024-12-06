@@ -120,10 +120,9 @@ def main():
 
         matriceElectreFiltre, matriceComparaison = electre.compute_electre(data, min_list, vetoList, concordance,
                                                                            listeSeuil)
-        electre.get_noyaux(matriceElectreFiltre, matriceComparaison)
+        noyau = electre.get_noyaux(matriceElectreFiltre, matriceComparaison)
         electre.create_graph_without_loop(matriceElectreFiltre, matriceComparaison, "./output/Electre")
-
-        affichage(matriceElectreFiltre, matriceComparaison)
+        electre.display_result(noyau)
 
     elif fonction == "weightsum":
         opera = input(
@@ -135,12 +134,14 @@ def main():
                 if opera != "max" and opera != "min":
                     break
 
-        print(weighted_sum.weighted_sum(data, min_list, opera))
-        weighted_sum.create_graph(weighted_sum.weighted_sum(data, min_list, opera), "./output/weighted_sum")
+        result = weighted_sum.weighted_sum(data, min_list, opera)
+        weighted_sum.display_result(result)
+        weighted_sum.create_graph(result, "./output/weighted_sum")
 
     elif fonction == "borda":
-        print(borda.borda(data, min_list))
-        borda.create_graph(borda.borda(data, min_list),"./output/borda")
+        result = borda.borda(data, min_list)
+        borda.display_result(result)
+        borda.create_graph(result, "./output/borda")
 
 
 
