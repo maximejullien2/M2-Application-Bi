@@ -13,7 +13,7 @@ def display_result(weighted_sum_result):
     print("Voici le résultat de l'algorithme somme pondérée : ")
     print("C"+str(weighted_sum_result[0]+1),end=" ")
     for i in range(1,len(weighted_sum_result)):
-        if weighted_sum_result[i] != weighted_sum[i-1]:
+        if weighted_sum_result[i] != weighted_sum_result[i-1]:
             print(" > C"+str(weighted_sum_result[i]+1),end=" ")
         else:
             print(" = C"+str(weighted_sum_result[i]+1),end="")
@@ -96,4 +96,5 @@ if __name__ == '__main__':
     data = pd.read_csv('data/donneesVoiture.csv')
     operation = ["min", "max", "min", "min", "max", "max", "min"]
     print(weighted_sum(data,operation, "min"))
+    display_result(weighted_sum(data,operation, "min"))
     create_graph(weighted_sum(data, operation, "min"), "weighted_sum_voiture")

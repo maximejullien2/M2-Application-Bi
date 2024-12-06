@@ -51,18 +51,18 @@ def create_graph(decompte_borda,filename):
     arg_array = promethee.sort(decompte_borda, -1)
     print(arg_array)
     i = 0
-    ancien = "C"+str(arg_array[i])
+    ancien = "C"+str(arg_array[i]+1)
     for j in range(i,len(arg_array) - 1):
             if decompte_borda[arg_array[j]]==decompte_borda[arg_array[j+1]]:
-                ancien += ",C"+str(arg_array[j+1])
+                ancien += ",C"+str(arg_array[j+1]+1)
                 i=i+1
             else:
                 break
     while (i < len(arg_array)-1):
-        message = "C"+str(arg_array[i+1])
+        message = "C"+str(arg_array[i+1]+1)
         for j in range(i+1,len(arg_array) - 1):
             if decompte_borda[arg_array[j]]==decompte_borda[arg_array[j+1]]:
-                message += ",C"+str(arg_array[j+1])
+                message += ",C"+str(arg_array[j+1]+1)
                 i=i+1
             else:
                 break
@@ -167,9 +167,9 @@ if __name__ == "__main__":
     for i in range(0,data.index.size):
         min.append("min")
     print(borda(data,min))
-    create_graph(borda(data, min),"borda")
+    create_graph(borda(data, min),"borda_decher")
 
     data = pd.read_csv('data/donneesVoiture.csv')
     operation = ["min", "max", "min", "min", "max", "max", "min"]
     print(borda(data,operation))
-    create_graph(borda(data, operation),"borda")
+    create_graph(borda(data, operation),"borda_voiture")

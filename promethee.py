@@ -299,14 +299,20 @@ if __name__ == '__main__':
     min = []
     for i in range(0,data.index.size):
         min.append("min")
-    print(promethee(1,data,min))
-    create_graph(1, promethee(1, data, min), "Promethee1_dechet")
-    print(promethee(2,data,min))
-    create_graph(2, promethee(2, data, min), "Promethee2_dechet")
+    display_result(1,promethee(1,data,min))
+    create_graph(1, promethee(1, data, min), "Prométhee1_dechet")
+    display_result(2,promethee(2,data,min))
+    create_graph(2, promethee(2, data, min), "Prométhee2_dechet")
 
     data = pd.read_csv('data/donneesVoiture.csv')
     operation = ["min", "max", "min", "min", "max", "max", "min"]
-    print(promethee(1,data,operation))
-    create_graph(1, promethee(1, data, operation), "Promethee1_Voiture")
-    print(promethee(2,data,operation))
-    create_graph(2, promethee(2, data, operation), "Promethee2_Voiture")
+    seuil = [500, 20, 1, 2, 1.5, 20, 0.5]
+    display_result(1,promethee(1,data,operation))
+    create_graph(1, promethee(1, data, operation), "Prométhee1_Voiture")
+    display_result(2,promethee(2,data,operation))
+    create_graph(2, promethee(2, data, operation), "Prométhee2_Voiture")
+
+    display_result(1,promethee(1,data,operation,seuil))
+    create_graph(1, promethee(1, data, operation,seuil), "Prométhee1_Voiture_seuil")
+    display_result(2,promethee(2,data,operation,seuil))
+    create_graph(2, promethee(2, data, operation,seuil), "Prométhee2_Voiture_seuil")
