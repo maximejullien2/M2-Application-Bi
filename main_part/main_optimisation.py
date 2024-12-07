@@ -1,10 +1,6 @@
-import borda
-import electre
-import promethee
-import weighted_sum
+from function import promethee, borda, weighted_sum, electre
 import argparse
-from electre import *
-from test_electre import affichage
+import pandas as pd
 import os
 
 def miniParseur(min_path):
@@ -36,7 +32,7 @@ def main():
     Parsing main part of the program.
 
     """
-    if ("output" in os.listdir("./")) == False:
+    if ("output" in os.listdir("../")) == False:
         os.mkdir("./output")
     args = parse_arguments()
     fonction = input(
@@ -88,11 +84,11 @@ def main():
 
         if versionProme == "1":
             result = promethee.promethee(1, data, min_list, listeSeuil)
-            promethee.display_result(1,result)
+            promethee.display_result(1, result)
             promethee.create_graph(1, result, "./output/PrometheeI")
         else:
             result = promethee.promethee(2, data, min_list, listeSeuil)
-            promethee.display_result(2,result)
+            promethee.display_result(2, result)
             promethee.create_graph(2, result, "./output/PrometheeII")
 
     elif fonction == "electre":

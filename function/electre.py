@@ -249,7 +249,7 @@ def get_noyaux(matrix,concordance):
 
 
 if __name__ == '__main__':
-    data = pd.read_csv('data/donneesFusionerDecher.csv')
+    data = pd.read_csv('../data/donneesFusionerDecher.csv')
     min = []
     veto = []
     seuil_preference = []
@@ -268,7 +268,7 @@ if __name__ == '__main__':
     get_noyaux(matriceElectreFiltre, matriceComparaison)
     create_graph_without_loop(matriceElectreFiltre, matriceComparaison, "ElectreIS_dechet")
 
-    data = pd.read_csv('data/donneesVoiture.csv')
+    data = pd.read_csv('../data/donneesVoiture.csv')
     operation = ["min", "max", "min", "min", "max", "max", "min"]
     veto = [3000, 69, 2, 4, 3, 50, 2]
     seuil_preference = [500, 20, 1, 2, 1.5, 20, 0.5]

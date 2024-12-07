@@ -254,7 +254,7 @@ def promethee(selection_mode, data, array_type_operation, seuil_preference_array
     return sort(phi_positif - phi_negatif, -1)
 
 if __name__ == '__main__':
-    data = pd.read_csv('data/donneesFusionerDecher.csv')
+    data = pd.read_csv('../data/donneesFusionerDecher.csv')
 
     min = []
     seuil = []
@@ -263,6 +263,7 @@ if __name__ == '__main__':
         seuil.append(2)
     display_result(1,promethee(1,data,min))
     create_graph(1, promethee(1, data, min), "Prométhee1_dechet")
+    result_promethee = promethee(1,data,min)
     display_result(2,promethee(2,data,min))
     create_graph(2, promethee(2, data, min), "Prométhee2_dechet")
 
@@ -270,37 +271,8 @@ if __name__ == '__main__':
     create_graph(1, promethee(1, data, min, seuil), "Prométhee1_dechet_seuil")
     display_result(2,promethee(2,data,min, seuil))
     create_graph(2, promethee(2, data, min, seuil), "Prométhee2_dechet_seuil")
-    print("###Environnement naturel####")
-    data = pd.read_csv("./data/naturel.csv")
-    display_result(1,promethee(1,data,min))
-    display_result(2,promethee(2,data,min))
 
-    display_result(1,promethee(1,data,min, seuil))
-    display_result(2,promethee(2,data,min, seuil))
-    print("###Acceptabilité technique####")
-    data = pd.read_csv("./data/accept_tech.csv")
-    display_result(1,promethee(1,data,min))
-    display_result(2,promethee(2,data,min))
-
-    display_result(1,promethee(1,data,min, seuil))
-    display_result(2,promethee(2,data,min, seuil))
-    print("###Environnement socio-économique####")
-    data = pd.read_csv("./data/socio_econo.csv")
-    display_result(1,promethee(1,data,min))
-    display_result(2,promethee(2,data,min))
-
-    display_result(1,promethee(1,data,min, seuil))
-    display_result(2,promethee(2,data,min, seuil))
-    print("###Environnement Économie####")
-    data = pd.read_csv("./data/econo.csv")
-    display_result(1,promethee(1,data,min))
-    display_result(2,promethee(2,data,min))
-
-    display_result(1,promethee(1,data,min, seuil))
-    display_result(2,promethee(2,data,min, seuil))
-    print("###########")
-
-    data = pd.read_csv('data/donneesVoiture.csv')
+    data = pd.read_csv('../data/donneesVoiture.csv')
     operation = ["min", "max", "min", "min", "max", "max", "min"]
     seuil = [500, 20, 1, 2, 1.5, 20, 0.5]
     display_result(1,promethee(1,data,operation))

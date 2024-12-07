@@ -1,5 +1,4 @@
-import main_parseur
-import main_optimisation
+from main_part import main_optimisation, main_parseur
 import sys
 
 def main():

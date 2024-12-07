@@ -162,14 +162,14 @@ def borda(data , array_operation_type):
     return decompte_borda
 
 if __name__ == "__main__":
-    data = pd.read_csv('data/donneesFusionerDecher.csv')
+    data = pd.read_csv('../data/donneesFusionerDecher.csv')
     min = []
     for i in range(0,data.index.size):
         min.append("min")
     print(borda(data,min))
     create_graph(borda(data, min),"borda_decher")
 
-    data = pd.read_csv('data/donneesVoiture.csv')
+    data = pd.read_csv('../data/donneesVoiture.csv')
     operation = ["min", "max", "min", "min", "max", "max", "min"]
     print(borda(data,operation))
     create_graph(borda(data, operation),"borda_voiture")

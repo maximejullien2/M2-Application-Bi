@@ -1,4 +1,4 @@
-import parseur
+from function import parseur
 import argparse
 import pandas as pd
 
