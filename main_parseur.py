@@ -2,7 +2,7 @@ import parseur
 import argparse
 import pandas as pd
 
-def miniParseur(min_path):
+def miniParseur(min_path, obligatoire = 0):
     """
     Parse data in file.
     Args:
@@ -10,7 +10,7 @@ def miniParseur(min_path):
     Returns:
         Array[str]: Array who contain data of min_path.
     """
-    if min_path == "":
+    if min_path == "" and obligatoire == 0:
         return None
     try:
         min_list = []
@@ -40,7 +40,7 @@ def main():
         exit(f"Le fichier à l'emplacement {fichier_path} est introuvable.")
     print(f"Chemin du fichier : {fichier_path}")
     data = pd.read_csv(fichier_path)
-    if "C1" != data.columns[0]:
+    if ("C1" in data.columns) == False:
         data = pd.read_csv(fichier_path, header=None)
     if args.transpose or input("Voulez-vous transposé vos données ? (y/n) : ") == "y":
         data = data.transpose()
@@ -50,34 +50,54 @@ def main():
         for i in range(1, len(data.columns) + 1):
             array.append(f"C{i}")
         data = data.set_axis(array, axis='columns')
-    if args.categorie != None:
-        for i in range(len(args.categorie)):
-            liste = miniParseur(args.categorie[i])
+    if args.categorie != None or input("Voulez-vous ajouter une ou plusieurs catégories (y/n) : ") == "y":
+        liste_categorie_file = args.categorie
+        liste_categorie_name = args.categorie_name
+        if liste_categorie_file is None:
+            liste_categorie_file = []
+            liste_categorie_name = []
+            while True:
+                liste_categorie_name.append(input("Donner le nom d'une colonne :"))
+                liste_categorie_file.append(input("Donner le fichier ou se trouve les données de la colonne : "))
+                if input("Voulez-vous continuer à ajouter une colonne (y/n) : ") == "n":
+                    break
+        for i in range(len(liste_categorie_file)):
+            liste = miniParseur(liste_categorie_file[i],1)
             if liste is not None:
                 for j in range(len(liste)):
                     liste[j] = float(liste[j])
-            data.insert(0, args.categorie_name[i], liste)
-    if args.weight != "" or input("Donner un fichier Weight celon les critère si vous le souhaitez : ") != "":
-        liste = miniParseur(args.weight)
+            data.insert(0, liste_categorie_name[i], liste)
+    path_weight = input("Donner un fichier Weight celon les critère si vous le souhaitez : ") if args.weight == "" else args.weight
+    if path_weight != "":
+        liste = miniParseur(path_weight)
         if liste is not None:
             for j in range(len(liste)):
                 liste[j] = float(liste[j])
-        data.insert(0, "Weight", liste)
-    if args.true_weight != "" or input(
-            "Donner un fichier TrueWeight celon les critère si vous le souhaitez : ") != "":
-        liste = miniParseur(args.true_weight)
+        data.insert(len(data.columns)-1, "Weight", liste)
+    path_true_weight = input("Donner un fichier TrueWeight celon les critère si vous le souhaitez : ") if args.true_weight == "" else args.true_weight
+    if path_true_weight != "" :
+        liste = miniParseur(path_true_weight)
         if liste is not None:
             for j in range(len(liste)):
                 liste[j] = float(liste[j])
-        data.insert(0, "TrueWeight", liste)
+        data.insert(len(data.columns)-1, "TrueWeight", liste)
     if args.compute_true_weight or input(
-            "Voulez-vous qu'on calcul la True Weight par rapport au Weight et au Catégories : (y/n) ") == "y":
+            "Voulez-vous qu'on calcul la True Weight par rapport au Weight et au Catégories (y/n) : ") == "y":
         data = parseur.computeTrueWeight(data, "")
-    if args.compute_true_weight_filtered != None:
-        data = parseur.computeTrueWeightFiltered(data, args.compute_true_weight_filtered, "")
+    if args.compute_true_weight_filtered != None or input(
+            "Voulez-vous qu'on calcul une True Weight par rapport au Weight et au Catégories spécifique (y/n) : ") == "y":
+        liste = args.compute_true_weight_filtered
+        if liste is None:
+            liste = []
+            while True:
+                liste.append(input("Donner le nom d'un thème d'une Catégories que l'on veut filtrer: "))
+                if input("Voulez-vous continuer à ajouter un thème à filtre (y/n) : ") == "n":
+                    break
+
+        data = parseur.computeTrueWeightFiltered(data, liste, "")
 
     output = input(
-        "Entrez le path de sortie du programme ") if args.output == "" else args.output
+        "Entrez le path de sortie du programme :") if args.output == "" else args.output
 
     data.to_csv(output, index=False)
 

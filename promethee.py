@@ -112,7 +112,7 @@ def create_graphe_type1_lien_non_identique(result_promethee, visiter, g):
                     break
                 else:
                     j +=1
-        return visiter, g
+    return visiter, g
 
 def create_graph(type, result_promethee, filename):
     """
@@ -131,48 +131,8 @@ def create_graph(type, result_promethee, filename):
         plt.savefig(filename + ".png")
     else:
         visiter = np.ones(len(result_promethee[0]))
-        for i in range(0,len(result_promethee[0])-1):
-            if result_promethee[0][i] == result_promethee[1][i] and result_promethee[0][i+1] == result_promethee[1][i+1]:
-                g.add_edge("C"+str(result_promethee[0][i]+1), "C"+str(result_promethee[0][i+1]+1))
-                visiter[result_promethee[0][i]] = 0
-        for i in range(0,len(result_promethee[0])-1):
-            for j in range(0, len(result_promethee[1]) - 1):
-                if result_promethee[0][i] == result_promethee[1][j] and i!=(len(result_promethee[0]) - 1) and j != (len(result_promethee[1]) - 1):
-                    if result_promethee[0][i+1] == result_promethee[1][j+1]:
-                        g.add_edge("C"+str(result_promethee[0][i]+1), "C"+str(result_promethee[0][i+1]+1))
-                        visiter[result_promethee[0][i]] = 0
-
-        array_superieur = []
-        for i in range(0,len(result_promethee[0])):
-            phi_neg = np.ones(len(result_promethee[1]))
-            phi_positivie = np.ones(len(result_promethee[0]))
-            position_positif = np.argwhere(result_promethee[0] == i)
-            position_neg = np.argwhere(result_promethee[1] == i)
-            for j in range(0,len(result_promethee[0])):
-                if np.argwhere(result_promethee[0] == j) <= position_positif:
-                    phi_positivie[j] = 0
-                if np.argwhere(result_promethee[1] == j) <= position_neg:
-                    phi_neg[j] = 0
-            array_superieur.append([phi_positivie, phi_neg])
-
-        for i in range(0,len(result_promethee[0])-1):
-            if visiter[result_promethee[0][i]] == 1:
-                j = i+1
-                while j < len(result_promethee[0]):
-                    if array_superieur[result_promethee[0][i]][0][result_promethee[0][j]] == 1 and array_superieur[result_promethee[0][i]][1][result_promethee[0][j]] == 1:
-                        g.add_edge("C"+str(result_promethee[0][i]+1), "C"+str(result_promethee[0][j]+1))
-                        break
-                    else:
-                        j +=1
-            if visiter[result_promethee[1][i]] == 1:
-                j = i+1
-                while j < len(result_promethee[1]):
-                    if array_superieur[result_promethee[1][i]][0][result_promethee[1][j]] == 1 and array_superieur[result_promethee[1][i]][1][result_promethee[1][j]] == 1:
-                        g.add_edge("C"+str(result_promethee[1][i]+1), "C"+str(result_promethee[1][j]+1))
-                        break
-                    else:
-                        j +=1
-
+        visiter, g = create_graphe_type1_lien_identique(result_promethee, visiter, g)
+        visiter, g = create_graphe_type1_lien_non_identique(result_promethee, visiter, g)
         nx.draw(g, with_labels=True)
         plt.savefig(filename + ".png")
 
