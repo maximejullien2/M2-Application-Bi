@@ -130,7 +130,7 @@ def main():
                 if opera != "max" and opera != "min":
                     break
 
-        result = weighted_sum.weighted_sum(data, min_list, opera)
+        result = weighted_sum.weighted_sum(data, opera)
         weighted_sum.display_result(result)
         weighted_sum.create_graph(result, "./output/weighted_sum")
 

@@ -35,13 +35,12 @@ def create_graph(weighted_sum_result, filename):
     nx.draw(g, with_labels = True)
     plt.savefig(filename+".png")
 
-def weighted_sum(data,array_type_operation, type_operation):
+def weighted_sum(data, type_operation):
     """
     Launch a weighted sum on a specific data.
 
     Args:
         data (Panda array): Represente data we want to treat.
-        array_type_operation (array): Represente action we want to do on each critère ("min" ou "max").
         type_operation (array): Represente action we want to do on each critère ("min" ou "max").
 
     Returns:
@@ -53,7 +52,7 @@ def weighted_sum(data,array_type_operation, type_operation):
     """
     try:
         if type_operation != "max" and type_operation != "min":
-            raise ValueError(f"At indice {i} , the array array_type_operation have a data different from 'min' or 'max'.")
+            raise ValueError(f"Type operation {type_operation} is not know .We need to have 'min' or 'max'.")
 
         if not pd.notnull(data).all(axis = None): 
             raise ValueError("One value in data is None")
@@ -98,3 +97,11 @@ if __name__ == '__main__':
     print(weighted_sum(data,operation, "min"))
     display_result(weighted_sum(data,operation, "min"))
     create_graph(weighted_sum(data, operation, "min"), "weighted_sum_voiture")
+
+    print("#########Etudiant############")
+    data = pd.read_csv('../data/donneesVoiture_etudiant.csv')
+    display_result(weighted_sum(data,operation, "min"))
+
+    print("#########Agée############")
+    data = pd.read_csv('../data/donneesVoiture_vieux.csv')
+    display_result(weighted_sum(data,operation, "min"))
