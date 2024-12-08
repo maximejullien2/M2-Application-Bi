@@ -3,33 +3,65 @@ import numpy as np
 import pandas as pd
 import networkx as nx 
 import matplotlib.pyplot as plt
-import promethee
-
-
-def display(decompte_borda):
+from function import promethee
+def display_result(decompte_borda):
     """
-    Create a png file to show result of borda algorithm.
+        Function to display the result of borda algorithm.
+
+        Args:
+            decompte_borda (array): Reprensent result of borda algorithm.
+    """
+    print("Voici le résultats d'après Borda: ")
+    arg_array = promethee.sort(decompte_borda, -1)
+    i = 0
+    ancien = "C" + str(arg_array[i]+1)
+    for j in range(i, len(arg_array) - 1):
+        if decompte_borda[arg_array[j]] == decompte_borda[arg_array[j + 1]]:
+            ancien += ",C" + str(arg_array[j + 1]+1)
+            i = i + 1
+        else:
+            break
+    print(ancien,end="")
+    meilleur = ancien
+    while (i < len(arg_array) - 1):
+        message = "C" + str(arg_array[i + 1])
+        for j in range(i + 1, len(arg_array) - 1):
+            if decompte_borda[arg_array[j]] == decompte_borda[arg_array[j + 1]]:
+                message += ",C" + str(arg_array[j + 1]+1)
+                i = i + 1
+            else:
+                break
+        print(" > "+message,end="")
+        i += 1
+    print()
+    print("Le ou les Meilleurs candidats sont ",meilleur)
+
+def create_graph(decompte_borda,filename):
+    """
+    Function to create a graph who will display result of borda algorithm in a filename.
 
     Args:
         decompte_borda (array): Reprensent result of borda algorithm.
+        filename (string): Name of output file.:
 
     """
+    plt.clf()
     g = nx.DiGraph()
     arg_array = promethee.sort(decompte_borda, -1)
     print(arg_array)
     i = 0
-    ancien = "A"+str(arg_array[i])
+    ancien = "C"+str(arg_array[i]+1)
     for j in range(i,len(arg_array) - 1):
             if decompte_borda[arg_array[j]]==decompte_borda[arg_array[j+1]]:
-                ancien += ",A"+str(arg_array[j+1])
+                ancien += ",C"+str(arg_array[j+1]+1)
                 i=i+1
             else:
                 break
     while (i < len(arg_array)-1):
-        message = "A"+str(arg_array[i+1])
+        message = "C"+str(arg_array[i+1]+1)
         for j in range(i+1,len(arg_array) - 1):
             if decompte_borda[arg_array[j]]==decompte_borda[arg_array[j+1]]:
-                message += ",A"+str(arg_array[j+1])
+                message += ",C"+str(arg_array[j+1]+1)
                 i=i+1
             else:
                 break
@@ -37,7 +69,7 @@ def display(decompte_borda):
         ancien = message
         i += 1
     nx.draw(g, with_labels = True)
-    plt.savefig("borda.png")
+    plt.savefig(filename+".png")
 
 
 def get_doublon(borda_point, j, i, value, array, arg_array):

@@ -4,20 +4,29 @@ import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 
-
-
-def display(matriceDisplay, filename):
+def display_result(noyau):
     """
-    Display the matrix in a png
-
+    Display the result of an electre algorithm.
     Args:
-        matriceDisplay list[int][int]: Matrix to display
+        noyau (Array): Represent the noyau of the electre algorithm result.
     """
+    print("Voici les meilleurs candidats d'après lalgorithme d'Electre : ",end="")
+    for i in noyau:
+        print("C"+str(i+1),end=" ")
+    print()
+def create_graph(matriceDisplay, filename):
+    """
+    Function to create a graph who will display result of electre algorithm in a filename.
+    Args:
+        matriceDisplay (Array[Array[]]): Array who represent electre result.
+        filename (string): Name of output file.:
+    """
+    plt.clf()
     g = nx.DiGraph()
     for i in range(len(matriceDisplay)):
         for j in range(len(matriceDisplay)):
             if matriceDisplay[i][j]==1:
-                g.add_edge(i, j)
+                g.add_edge("C"+str(i+1), "C"+str(j+1))
     nx.draw(g, with_labels = True)
     plt.savefig(filename+".png")
 
@@ -100,11 +109,9 @@ def compute_electre(data, array_type_operation, veto, seuil_concordance, seuil_p
                 matriceComparaison[i][j] = sum
             else:
                 matriceNonDiscordance[i][j] = 0
-
     for i in range(len(columns_name)):
         for j in range(len(columns_name)):
             if (matriceNonDiscordance[i][j]==1 and matriceComparaison[i][j]>=seuil_concordance):
-                # print(i, j, matriceNonDiscordance[i][j], matriceComparaison[i][j])
                 matriceElectreFiltre[i][j]=1
 
     return matriceElectreFiltre, matriceComparaison
@@ -129,7 +136,7 @@ def erase_simple_loop(matrix, concordance):
                     matrix[i][j] = 0
     return matrix
 
-def display_without_loop(matrix, concordance, filename):
+def create_graph_without_loop(matrix, concordance, filename):
     """
     Proceed to erase every loop in matrix and after display new graphique.
 
@@ -140,7 +147,7 @@ def display_without_loop(matrix, concordance, filename):
     """
     matrix = erase_simple_loop(matrix, concordance)
     matrix = erase_multi_loop(matrix, concordance)
-    display(matrix,filename)
+    create_graph(matrix, filename)
     
 def erase_multi_loop(matrix, concordance):
     """
@@ -197,7 +204,7 @@ def suppression_noeud(matrix, visiter, concordance):
 
     Args:
         matrix (Array) : Give each link we use.
-        visiter (Array) : Represent each poitn we visit
+        visiter (Array) : Represent each point we visit
         concordance (Array) : Give concordance result wetween two points.
 
     Returns: 
@@ -216,3 +223,27 @@ def suppression_noeud(matrix, visiter, concordance):
             noeud = [visiter[i], visiter[i+1]]
     matrix[noeud[0]][noeud[1]] = 0
     return matrix
+
+def get_noyaux(matrix,concordance):
+    """
+    Get noyaux from electre result.
+    Args:
+        matrix (Array) : Give each link we use.
+        concordance (Array) : Give concordance result wetween two points.
+
+    Returns:
+        array : Return noyau of electre result.
+    """
+    matrix = erase_simple_loop(matrix, concordance)
+    matrix = erase_multi_loop(matrix, concordance)
+    visiter = np.ones(len(matrix[0]))
+    for i in range(0,len(matrix)):
+        for j in range(0,len(matrix[0])):
+            if matrix[i][j] == 1:
+                visiter[j] = 0
+    noyau = []
+    for i in range(len(visiter)):
+        if visiter[i] == 1:
+            noyau.append(i)
+    return noyau
+

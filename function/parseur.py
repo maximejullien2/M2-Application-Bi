@@ -94,16 +94,18 @@ def computeTrueWeight(table,donnees):
         table (pandas.core.frame.DataFrame): The table to manipulate
         donnees (string): the name of the file to save the new data
     """
-    #cleanCollumn(table, donnees)
+    cleanCollumn(table, donnees)
     counter = 0
     for i in table["Weight"].tolist():
-        currentValue = 0.25 * table["ThemeValue"].tolist()[counter] * i
+        currentValue = (1/len(table["Catégories"].unique())) * table["ThemeValue"].tolist()[counter] * i
         table.loc[counter, "TrueWeight"] = currentValue
         counter = counter + 1
-    table.to_csv("data/"+donnees+".csv", index=False)
+    if donnees is not None:
+        table.to_csv("data/"+donnees+".csv", index=False)
+    return table
 
 
-def computeTrueWeightFiltered(table, categories, donnees):
+def computeTrueWeightFiltered(table, categories, donnees = None):
     """
     Will calculate the true weight for every row/criteria that is in one of the categories of the table then save it in the csv.
 
@@ -112,29 +114,15 @@ def computeTrueWeightFiltered(table, categories, donnees):
         categories (string list): The categories of the table to manipulate
         donnees (string): the name of the file to save the new data
     """
-    #cleanCollumn(table,donnees)
+    cleanCollumn(table,donnees)
     counter = 0
-
     for i in table["Weight"].tolist():
         for y in categories:
             if table["Catégories"][counter] == y:
                 currentValue = 1 / len(categories) * table["ThemeValue"].tolist()[counter] * i
                 table.loc[counter, "TrueWeight"] = currentValue
         counter = counter + 1
-    table.to_csv("data/"+donnees+".csv", index=False)
+    if donnees is not None:
+        table.to_csv("data/"+donnees+".csv", index=False)
+    return table
 
-
-if __name__ == '__main__':
-    table = pd.read_csv('data/donneesFusionerDecher.csv')
-    # display_table(table)
-    # print(extract_column(table, "Thèmes", "donneesFusionerDecher"))
-    # print(removeDuplicate(extract_column_argumented(table,"Thèmes","Catégories","Acceptabilité technique")))
-    computeTrueWeight(table, "donneesFusionerDecher")
-
-    # focaliser = ["Environnement naturel", "Économie"]
-    # computeTrueWeightFiltered(table, focaliser, "donneesFusionerDecher")
-    countty = 0
-    for y in table["TrueWeight"].tolist():
-        countty = countty + y
-    print("total true weight= ", countty)
-    print(table["TrueWeight"].tolist())
