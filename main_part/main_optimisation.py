@@ -153,13 +153,13 @@ def parse_arguments() -> argparse.Namespace:
 
     parser.add_argument("-f", "--function", default="", help="Définis le type d'optimisation que l'on va faire (borda, promethee, electre ou weightsum")
     parser.add_argument("-file", "--filepath", default="", help="Définie sur quel fichier on veut réaliser le travail")
-    parser.add_argument("-op", "--operation", default="", help="Définie sur quel fichier on se trouvera le type d'operation que l'on veut apr critère ( min ou max)")
+    parser.add_argument("-op", "--operation", default="", help="Définie sur quel fichier, au format colonne, on se trouvera le type d'operation que l'on veut apr critère ( min ou max)")
     parser.add_argument("-type_result", default="", help="Pour la weightsum savoir pour quel ordre on veut que la sortie soit (min pour ordre croissant , max par ordre décroissant")
 
     parser.add_argument("-v", "--version_algorithme", default="", help="Pour Prométhée , savoir lequel on va utiliser (1 pour PromethéeI ou 2 pour ProméthéeII)")
     parser.add_argument("-concordance", default="", help="Représente le seuil de concordance compris entre 0 et 1")
-    parser.add_argument("-seuil", default="" ,help="Définie quel fichier on va utiliser pour récupérer les seuil de préférence pour Electre et Prométhee")
-    parser.add_argument("-veto", default="" ,help="Définie quel fichier on va utiliser pour récupérer les vetos pour Electre.")
+    parser.add_argument("-seuil", default="" ,help="Définie quel fichier, au format colonne, on va utiliser pour récupérer les seuil de préférence pour Electre et Prométhee")
+    parser.add_argument("-veto", default="" ,help="Définie quel fichier, au format colonne, on va utiliser pour récupérer les vetos pour Electre.")
     return parser.parse_args()
 
 
