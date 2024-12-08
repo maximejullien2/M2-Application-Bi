@@ -247,37 +247,3 @@ def get_noyaux(matrix,concordance):
             noyau.append(i)
     return noyau
 
-
-if __name__ == '__main__':
-    data = pd.read_csv('../data/donneesDecherterie.csv')
-    min = []
-    veto = []
-    seuil_preference = []
-    seuil_concordance = 0
-    for i in range(0,data.index.size):
-        min.append("min")
-        veto.append(10)
-        seuil_preference.append(2)
-
-
-    matriceElectreFiltre, matriceComparaison = compute_electre(data, min, veto, seuil_concordance)
-    get_noyaux(matriceElectreFiltre, matriceComparaison)
-    create_graph_without_loop(matriceElectreFiltre, matriceComparaison, "ElectreIV_dechet")
-
-    matriceElectreFiltre, matriceComparaison = compute_electre(data, min, veto, seuil_concordance,seuil_preference)
-    get_noyaux(matriceElectreFiltre, matriceComparaison)
-    create_graph_without_loop(matriceElectreFiltre, matriceComparaison, "ElectreIS_dechet")
-
-    data = pd.read_csv('../data/donneesVoiture.csv')
-    operation = ["min", "max", "min", "min", "max", "max", "min"]
-    veto = [3000, 69, 2, 4, 3, 50, 2]
-    seuil_preference = [500, 20, 1, 2, 1.5, 20, 0.5]
-    seuil_concordance = 0.5
-
-    matriceElectreFiltre, matriceComparaison = compute_electre(data, min, veto, seuil_concordance)
-    get_noyaux(matriceElectreFiltre, matriceComparaison)
-    create_graph_without_loop(matriceElectreFiltre, matriceComparaison, "ElectreIV_voiture")
-
-    matriceElectreFiltre, matriceComparaison = compute_electre(data, min, veto, seuil_concordance,seuil_preference)
-    get_noyaux(matriceElectreFiltre, matriceComparaison)
-    create_graph_without_loop(matriceElectreFiltre, matriceComparaison, "ElectreIS_voiture")

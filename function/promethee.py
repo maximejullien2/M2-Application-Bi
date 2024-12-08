@@ -252,35 +252,3 @@ def promethee(selection_mode, data, array_type_operation, seuil_preference_array
                 sort(phi_negatif)]
 
     return sort(phi_positif - phi_negatif, -1)
-
-if __name__ == '__main__':
-    data = pd.read_csv('../data/donneesDecherterie.csv')
-
-    min = []
-    seuil = []
-    for i in range(0,data.index.size):
-        min.append("min")
-        seuil.append(2)
-    display_result(1,promethee(1,data,min))
-    create_graph(1, promethee(1, data, min), "Prométhee1_dechet")
-    result_promethee = promethee(1,data,min)
-    display_result(2,promethee(2,data,min))
-    create_graph(2, promethee(2, data, min), "Prométhee2_dechet")
-
-    display_result(1,promethee(1,data,min, seuil))
-    create_graph(1, promethee(1, data, min, seuil), "Prométhee1_dechet_seuil")
-    display_result(2,promethee(2,data,min, seuil))
-    create_graph(2, promethee(2, data, min, seuil), "Prométhee2_dechet_seuil")
-
-    data = pd.read_csv('../data/donneesVoiture.csv')
-    operation = ["min", "max", "min", "min", "max", "max", "min"]
-    seuil = [500, 20, 1, 2, 1.5, 20, 0.5]
-    display_result(1,promethee(1,data,operation))
-    create_graph(1, promethee(1, data, operation), "Prométhee1_Voiture")
-    display_result(2,promethee(2,data,operation))
-    create_graph(2, promethee(2, data, operation), "Prométhee2_Voiture")
-
-    display_result(1,promethee(1,data,operation,seuil))
-    create_graph(1, promethee(1, data, operation,seuil), "Prométhee1_Voiture_seuil")
-    display_result(2,promethee(2,data,operation,seuil))
-    create_graph(2, promethee(2, data, operation,seuil), "Prométhee2_Voiture_seuil")

@@ -82,26 +82,3 @@ def weighted_sum(data, type_operation):
     if type_operation == "max":
         return promethee.sort(result, -1)
     return promethee.sort(result)
-
-
-if __name__ == '__main__':
-    data = pd.read_csv('../data/donneesDecherterie.csv')
-    min = []
-    for i in range(0,data.index.size):
-        min.append("min")
-    print(weighted_sum(data,min, "min"))
-    display_result(weighted_sum(data,min, "min"))
-    create_graph(weighted_sum(data, min, "min"), "weighted_sum_decher")
-    data = pd.read_csv('../data/donneesVoiture.csv')
-    operation = ["min", "max", "min", "min", "max", "max", "min"]
-    print(weighted_sum(data,operation, "min"))
-    display_result(weighted_sum(data,operation, "min"))
-    create_graph(weighted_sum(data, operation, "min"), "weighted_sum_voiture")
-
-    print("#########Etudiant############")
-    data = pd.read_csv('../data/donneesVoiture_etudiant.csv')
-    display_result(weighted_sum(data,operation, "min"))
-
-    print("#########Agée############")
-    data = pd.read_csv('../data/donneesVoiture_vieux.csv')
-    display_result(weighted_sum(data,operation, "min"))
