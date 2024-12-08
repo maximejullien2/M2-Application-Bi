@@ -1,6 +1,6 @@
 import re
 import pandas as pd
-import promethee
+from function import promethee
 import networkx as nx
 import matplotlib.pyplot as plt
 

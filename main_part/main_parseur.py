@@ -98,8 +98,11 @@ def main():
 
     output = input(
         "Entrez le path de sortie du programme :") if args.output == "" else args.output
-
-    data.to_csv(output, index=False)
+    header = input("Doit-on garder les noms des colonnes (y/n) :")
+    bool_header = False
+    if header == "y":
+        bool_header = True
+    data.to_csv(output, index=False, header=bool_header)
 
 def parse_arguments() -> argparse.Namespace:
     """

@@ -3,8 +3,7 @@ import numpy as np
 import pandas as pd
 import networkx as nx 
 import matplotlib.pyplot as plt
-import promethee
-
+from function import promethee
 def display_result(decompte_borda):
     """
         Function to display the result of borda algorithm.
