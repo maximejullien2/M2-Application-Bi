@@ -249,7 +249,7 @@ def get_noyaux(matrix,concordance):
 
 
 if __name__ == '__main__':
-    data = pd.read_csv('../data/donneesFusionerDecher.csv')
+    data = pd.read_csv('../data/donneesDecherterie.csv')
     min = []
     veto = []
     seuil_preference = []

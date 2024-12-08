@@ -86,7 +86,7 @@ def weighted_sum(data,array_type_operation, type_operation):
 
 
 if __name__ == '__main__':
-    data = pd.read_csv('../data/donneesFusionerDecher.csv')
+    data = pd.read_csv('../data/donneesDecherterie.csv')
     min = []
     for i in range(0,data.index.size):
         min.append("min")

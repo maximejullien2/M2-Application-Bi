@@ -161,7 +161,7 @@ def borda(data , array_operation_type):
     return decompte_borda
 
 if __name__ == "__main__":
-    data = pd.read_csv('../data/donneesFusionerDecher.csv')
+    data = pd.read_csv('../data/donneesDecherterie.csv')
     min = []
     for i in range(0,data.index.size):
         min.append("min")
